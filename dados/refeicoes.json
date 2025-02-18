@@ -1,0 +1,26 @@
+[
+    {
+      "Id_Refeicao": 1,
+      "Nome": "Churrasco Misto",
+      "Preco": 55.00,
+      "Descricao": "Variedade de carnes nobres",
+      "Url_foto": "url_churrasco.jpg",
+      "Categoria": "Carnes"
+    },
+    {
+      "Id_Refeicao": 2,
+      "Nome": "Pizza Margherita",
+      "Preco": 35.00,
+      "Descricao": "Massa fina com mussarela e manjericão",
+      "Url_foto": "url_pizza.jpg",
+      "Categoria": "Massas"
+    },
+    {
+      "Id_Refeicao": 3,
+      "Nome": "Salmão Sashimi",
+      "Preco": 42.00,
+      "Descricao": "Salmão fresco e saboroso",
+      "Url_foto": "url_sashimi.jpg",
+      "Categoria": "Japonesa"
+    }
+  ]
