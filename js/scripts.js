@@ -52,17 +52,5 @@ window.addEventListener('DOMContentLoaded', event => {
     });
 
 });
-document.getElementById('email').addEventListener('click', function() {
-    const textoCopiado = "gcccefetmg@gmail.com";
-    
-    navigator.clipboard.writeText(textoCopiado)
-        .then(() => {
-            console.log('Email copiado para a área de tranferência');
-            alert('Email copiado para a área de tranferência');
-        })
-        .catch(err => {
-            console.error('Erro ao copiar texto: ', err);
-            alert('Erro ao copiar texto. Por favor, tente novamente.');
-        });
-});
+
 

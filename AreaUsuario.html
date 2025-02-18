@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="Gustavo Pimenta Cordeiro & Isadellis Paixão" />
+    <title>GCC</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="css/styles.css" rel="stylesheet" />
+</head>
+
+<body>
+    <!-- Cabeçalho -->
+    <script src="js/padroes/navbar.js"></script>
+
+    <!-- Chamada -->
+    <div class="container-fluid mt-5 pt-5">
+        <div class="container p-3 text-dark">
+            <div class="text-uppercase text-center">
+                <h1 class="page-title">Cadastre/Realizar login</h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="user-container">
+            <h2 class="text-center">Bem-vindo, <span id="user-name">Usuário</span>!</h2>
+            <p class="text-center text-muted">Aqui estão seus dados cadastrados:</p>
+
+            <ul class="list-group">
+                <li class="list-group-item"><strong>Nome:</strong> <span id="nome">---</span></li>
+                <li class="list-group-item"><strong>E-mail:</strong> <span id="email">---</span></li>
+                <li class="list-group-item"><strong>Telefone:</strong> <span id="telefone">---</span></li>
+                <li class="list-group-item"><strong>Endereço:</strong> <span id="endereco">---</span></li>
+                <li class="list-group-item"><strong>CPF:</strong> <span id="cpf">---</span></li>
+            </ul>
+
+            <div class="text-center mt-4">
+                <button class="btn btn-danger w-100" onclick="logout()">Sair</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/padroes/footer.js"></script>
+   
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="js/scripts.js"></script>
+
+    <script>//TODO: Modificar para puxar 
+        // Simulação de dados do usuário (pode ser substituído por dados reais)
+        const userData = {
+            nome: "João da Silva",
+            email: "joao@email.com",
+            telefone: "(31) 98765-4321",
+            endereco: "Rua das Flores, 123",
+            cpf: "123.456.789-00"
+        };
+    
+        // Preenchendo os campos com os dados do usuário
+        document.getElementById("user-name").innerText = userData.nome;
+        document.getElementById("nome").innerText = userData.nome;
+        document.getElementById("email").innerText = userData.email;
+        document.getElementById("telefone").innerText = userData.telefone;
+        document.getElementById("endereco").innerText = userData.endereco;
+        document.getElementById("cpf").innerText = userData.cpf;
+    
+        // Função para "logout" (pode ser adaptada para remover tokens/sessões)
+        function logout() {
+            alert("Você saiu da sua conta.");
+            window.location.href = "login.html"; // Redireciona para a tela de login
+        }
+    </script>
+
+</body>
