@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-    document.getElementById("Cadastro").addEventListener("submit", async function (event) {
+    document.getElementById("CadastroUsu").addEventListener("submit", async function (event) {
         event.preventDefault(); // Impede o recarregamento da página
 
         const nome = document.getElementById("nome").value;
@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const response = await fetch("http://127.0.0.1:5000/Cadastro", {
                 method: "POST",
                 headers: {
-                    "Content-Type": "dados/application/json"
+                    "Content-Type": "dados/usuario/json"
                 },
                 body: JSON.stringify({ nome,email,telefone, endereco,cpf,senha })
             });
