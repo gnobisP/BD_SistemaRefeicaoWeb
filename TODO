@@ -1,7 +1,15 @@
+
+##GUSTAVO##
 (X) Criar tela de AlterarCadastraUsuario
 () Criar tela de CadastroFuncionario
 () Criar tela cadastrarCupom
 () Criar tela CadastroAlimento
 (X) Criar telas de refeições
-() Criar carrinho
+
+(X) Criar carrinho
+    () opção remover remove do jason
+    () opção cupom
 (X) Criar visualizar pedidos na area do areaUsuario
+
+##ARTHUR##
+##GALLEGOS##
