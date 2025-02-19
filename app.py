@@ -61,7 +61,18 @@ def cardapio():
 #---------------Fim das rotas para o front-end .html-------------------------
 
 
+#rota para adicionar refeicao no refeicoes.html
+@app.route('/api/refeicoes')
+def get_refeicoes():
+    with open('dados/refeicoes.json', 'r', encoding='utf-8') as f:
+        refeicoes = json.load(f)
+    return jsonify(refeicoes)
 
+@app.route('/api/checklogin')
+def checklogin():
+    with open('dados/usuario.json', 'r', encoding='utf-8') as f:
+        usuario = json.load(f)
+    return jsonify(usuario)
 
 @app.route('/obterProdutos', methods=['GET'])
 def obter_produtos():

@@ -4,8 +4,8 @@ let refeicoes = [];
 // Função para carregar e exibir as refeições
 async function carregarRefeicoes() {
   try {
-    // Carrega o arquivo JSON
-    const response = await fetch('../dados/refeicoes.json');
+    // Carrega os dados da API Flask
+    const response = await fetch('/api/refeicoes');
     refeicoes = await response.json();
 
     // Preenche o select box com as categorias

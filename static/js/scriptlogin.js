@@ -1,30 +1,31 @@
-document.addEventListener("DOMContentLoaded", function () {
-    document.getElementById("login").addEventListener("submit", async function (event) {
-        event.preventDefault(); // Impede o recarregamento da página
+async function checklogin() {
+    try {
+        const response = await fetch('/api/checklogin');
+        const usuarios = await response.json();
 
-        const email = document.getElementById("email").value;
-        const password = document.getElementById("password").value;
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value.trim();
 
-        try {
-            const response = await fetch("http://127.0.0.1:5000/login", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "dados/application/json"
-                },
-                body: JSON.stringify({ email, password })
-            });
-
-            const data = await response.json();
-
-            if (response.ok) {
-                alert("✅ " + data.message);
-                // Aqui você pode redirecionar o usuário, salvar um token, etc.
+        let correto = false;
+        for (let user of usuarios) {
+            const str1 = JSON.stringify(user);
+            if (str1.includes(email) && str1.includes(password)) {
+                correto = true;
+                break;
             } else {
-                alert("❌ " + data.message);
+                correto = false;
             }
-        } catch (error) {
-            console.error("Erro ao conectar ao servidor:", error);
-            alert("Erro ao tentar fazer login. Tente novamente.");
         }
-    });
-});
+
+        if (correto) {
+            window.location.href = "/AreaUsuario";
+        } else {
+            alert("❌ Usuário ou senha incorretos.");
+        }
+    } catch (error) {
+        console.error('Erro ao carregar os dados do usuário:', error);
+    }
+}
+
+
+

@@ -23,7 +23,7 @@ Login
     (X) modificar pushButton Entrar
 
 (X) Criar visualizar pedidos na area do areaUsuario
-
+() Corrigir login // Returns an array of the key/value pairs of an object Object.entries(object)
 ##ARTHUR##
 caminho front-back!!
 ##GALLEGOS##

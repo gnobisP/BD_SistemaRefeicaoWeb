@@ -1,13 +1,5 @@
 [
     {
-        "Cpf_Cliente": "12345678901",
-        "Nome": "Maria Silva",
-        "Endereco": "Rua A, 10",
-        "Telefone": "99999999999",
-        "Email": "maria@email.com",
-        "Senha": "senha123"
-    },
-    {
         "Cpf_Cliente": "98765432109",
         "Nome": "João Pereira",
         "Endereco": "Rua B, 20",
