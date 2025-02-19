@@ -7,18 +7,20 @@
 (X) Criar telas de refeições
 
 (X) Criar carrinho
-    () opção remover remove do jason
+    (X) opção remover remove do jason
     () opção cupom
     () script carrinho
 areaUsuario
-    () modificar botao sair 
-    () modificar botao alterar dados
+    (X) modificar botao sair 
+    (X) modificar botao alterar dados
     (X) cadastrar navBar
 carrinho
     () concertar navBar
     () concertar botoes
 Cardapio
     () puxar itens do jason
+Login
+    (X) modificar pushButton Entrar
 
 (X) Criar visualizar pedidos na area do areaUsuario
 
