@@ -27,7 +27,7 @@ def obter_produtos():
 
 
 
-@app.route('/salvarCliente', methods=['POST'])
+@app.route('/salvarUsuario', methods=['POST'])
 def salvar_usuario():
     data = request.json
     cliente_data = data['cliente']
