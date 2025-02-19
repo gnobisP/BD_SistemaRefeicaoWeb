@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const senha = document.getElementById("senha").value;
 
         try {
-            const response = await fetch("http://127.0.0.1:5000/CadastroUsu/salvarUsuario", {
+            const response = await fetch("/salvarUsuario", {
                 method: "POST",
                 headers: {
                     "Content-Type": "dados/usuario/json"
