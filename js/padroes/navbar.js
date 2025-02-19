@@ -15,6 +15,9 @@ document.write(`
             <li class="nav-item">
               <a class="nav-link" href="refeicoes.html">Cardapio</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="carrinho.html">Carrinho</a>
+            </li>
           </ul>
         </div>
       </div>
