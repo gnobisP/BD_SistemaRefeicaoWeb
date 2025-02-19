@@ -1,0 +1,82 @@
+[
+    {
+        "Cpf_Cliente": "12345678901",
+        "Nome": "Maria Silva",
+        "Endereco": "Rua A, 10",
+        "Telefone": "99999999999",
+        "Email": "maria@email.com",
+        "Senha": "senha123"
+    },
+    {
+        "Cpf_Cliente": "98765432109",
+        "Nome": "João Pereira",
+        "Endereco": "Rua B, 20",
+        "Telefone": "88888888888",
+        "Email": "joao@email.com",
+        "Senha": "senha456"
+    },
+    {
+        "Cpf_Cliente": "11122233344",
+        "Nome": "Ana Souza",
+        "Endereco": "Rua C, 30",
+        "Telefone": "77777777777",
+        "Email": "ana@email.com",
+        "Senha": "senha789"
+    },
+    {
+        "Cpf_Cliente": "44455566677",
+        "Nome": "Pedro Oliveira",
+        "Endereco": "Rua D, 40",
+        "Telefone": "66666666666",
+        "Email": "pedro@email.com",
+        "Senha": "senha101"
+    },
+    {
+        "Cpf_Cliente": "88899900011",
+        "Nome": "Carla Santos",
+        "Endereco": "Rua E, 50",
+        "Telefone": "55555555555",
+        "Email": "carla@email.com",
+        "Senha": "senha112"
+    },
+    {
+        "Cpf_Cliente": "22233344455",
+        "Nome": "Mariana Almeida",
+        "Endereco": "Rua F, 60",
+        "Telefone": "44444444444",
+        "Email": "mariana@email.com",
+        "Senha": "senha123"
+    },
+    {
+        "Cpf_Cliente": "66677788899",
+        "Nome": "Rafael Souza",
+        "Endereco": "Rua G, 70",
+        "Telefone": "33333333333",
+        "Email": "rafael@email.com",
+        "Senha": "senha456"
+    },
+    {
+        "Cpf_Cliente": "00011122233",
+        "Nome": "Laura Pereira",
+        "Endereco": "Rua H, 80",
+        "Telefone": "22222222222",
+        "Email": "laura@email.com",
+        "Senha": "senha789"
+    },
+    {
+        "Cpf_Cliente": "55566677799",
+        "Nome": "Gustavo Oliveira",
+        "Endereco": "Rua I, 90",
+        "Telefone": "11111111111",
+        "Email": "gustavo@email.com",
+        "Senha": "senha101"
+    },
+    {
+        "Cpf_Cliente": "77788899900",
+        "Nome": "Isabela Santos",
+        "Endereco": "Rua J, 100",
+        "Telefone": "00000000000",
+        "Email": "isabela@email.com",
+        "Senha": "senha112"
+    }
+]

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrinho de Compras</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .cart-item img {
+            width: 100px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">Carrinho de Compras</h1>
+        <div id="cart-items"></div>
+        <div class="mt-4">
+            <h4>Escolha o modo de pagamento:</h4>
+            <select class="form-control" id="paymentMethod">
+                <option value="card">Cartão</option>
+                <option value="cash">Dinheiro</option>
+            </select>
+        </div>
+        <button class="btn btn-danger mt-4" onclick="emptyCart()">Esvaziar Carrinho</button>
+        <button class="btn btn-success mt-4" onclick="finalizePurchase()">Finalizar Compra</button>
+    </div>
+
+    <script>
+        let cartItems = [];
+
+        async function fetchCartItems() {
+            try {
+                const response = await fetch('dados/carrinho.json');
+                cartItems = await response.json();
+                renderCart();
+            } catch (error) {
+                console.error('Erro ao carregar os itens do carrinho:', error);
+            }
+        }
+
+        async function updateCartItems() {
+            try {
+                await fetch('dados/carrinho.json', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(cartItems)
+                });
+            } catch (error) {
+                console.error('Erro ao atualizar os itens do carrinho:', error);
+            }
+        }
+
+        function renderCart() {
+            const cartItemsContainer = document.getElementById('cart-items');
+            cartItemsContainer.innerHTML = '';
+            cartItems.forEach((item, index) => {
+                const cartItem = document.createElement('div');
+                cartItem.className = 'cart-item';
+                cartItem.innerHTML = `
+                    <img src="${item.Url_foto}" alt="${item.Nome}">
+                    <div>
+                        <h5>${item.Nome}</h5>
+                        <p>${item.Descricao}</p>
+                        <p>R$ ${item.Preco.toFixed(2)}</p>
+                    </div>
+                    <button class="btn btn-danger" onclick="removeItem(${index})">Remover</button>
+                `;
+                cartItemsContainer.appendChild(cartItem);
+            });
+        }
+
+        async function removeItem(index) {
+            cartItems.splice(index, 1);
+            await updateCartItems();
+            renderCart();
+        }
+
+        async function emptyCart() {
+            cartItems.length = 0;
+            await updateCartItems();
+            renderCart();
+        }
+
+        function finalizePurchase() {
+            const paymentMethod = document.getElementById('paymentMethod').value;
+            alert(`Compra finalizada com sucesso! Método de pagamento: ${paymentMethod}`);
+            emptyCart();
+        }

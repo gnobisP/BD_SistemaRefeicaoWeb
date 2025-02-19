@@ -10,22 +10,10 @@ document.write(`
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
             <li class="nav-item">
-              <a class="nav-link" href="index.html">Início</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="historico.html">Histórico</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="equipe.html">Equipe</a>
-            </li>
-            <li class="nav-item">
               <a class="nav-link" href="AreaUsuario.html">Área Usuario</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="fotos.html">Fotos</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="login.html">Login</a>
+              <a class="nav-link" href="refeicoes.html">Cardapio</a>
             </li>
           </ul>
         </div>

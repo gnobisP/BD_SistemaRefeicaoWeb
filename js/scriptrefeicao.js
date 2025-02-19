@@ -5,7 +5,7 @@ let refeicoes = [];
 async function carregarRefeicoes() {
   try {
     // Carrega o arquivo JSON
-    const response = await fetch('dados/refeicoes.json');
+    const response = await fetch('../dados/refeicoes.json');
     refeicoes = await response.json();
 
     // Preenche o select box com as categorias

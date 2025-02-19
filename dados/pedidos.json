@@ -1,0 +1,92 @@
+[
+    {
+        "Id_Pedido": 1,
+        "Valor_Pago": 75.00,
+        "Forma_Pagamento": "Cartão",
+        "Id_Restaurante": 1,
+        "Cpf_Cliente": "12345678901",
+        "Cpf_Entregador": "55566677788",
+        "Data_Entrega": "2024-07-20",
+        "Frete": 10.00
+    },
+    {
+        "Id_Pedido": 2,
+        "Valor_Pago": 40.00,
+        "Forma_Pagamento": "Dinheiro",
+        "Id_Restaurante": 2,
+        "Cpf_Cliente": "98765432109",
+        "Cpf_Entregador": "99988877766",
+        "Data_Entrega": "2024-07-20",
+        "Frete": 5.00
+    },
+    {
+        "Id_Pedido": 3,
+        "Valor_Pago": 62.00,
+        "Forma_Pagamento": "Cartão",
+        "Id_Restaurante": 3,
+        "Cpf_Cliente": "11122233344",
+        "Cpf_Entregador": "12378945600",
+        "Data_Entrega": "2024-07-21",
+        "Frete": 8.00
+    },
+    {
+        "Id_Pedido": 4,
+        "Valor_Pago": 35.00,
+        "Forma_Pagamento": "Dinheiro",
+        "Id_Restaurante": 1,
+        "Cpf_Cliente": "44455566677",
+        "Cpf_Entregador": "55566677788",
+        "Data_Entrega": "2024-07-21",
+        "Frete": 12.00
+    },
+    {
+        "Id_Pedido": 5,
+        "Valor_Pago": 50.00,
+        "Forma_Pagamento": "Cartão",
+        "Id_Restaurante": 2,
+        "Cpf_Cliente": "88899900011",
+        "Cpf_Entregador": "99988877766",
+        "Data_Entrega": "2024-07-22",
+        "Frete": 7.00
+    },
+    {
+        "Id_Pedido": 6,
+        "Valor_Pago": 80.00,
+        "Forma_Pagamento": "Cartão",
+        "Id_Restaurante": 3,
+        "Cpf_Cliente": "22233344455",
+        "Cpf_Entregador": "12378945600",
+        "Data_Entrega": "2024-07-22",
+        "Frete": 10.00
+    },
+    {
+        "Id_Pedido": 8,
+        "Valor_Pago": 60.00,
+        "Forma_Pagamento": "Cartão",
+        "Id_Restaurante": 2,
+        "Cpf_Cliente": "00011122233",
+        "Cpf_Entregador": "99988877766",
+        "Data_Entrega": "2024-07-23",
+        "Frete": 15.00
+    },
+    {
+        "Id_Pedido": 9,
+        "Valor_Pago": 90.00,
+        "Forma_Pagamento": "Cartão",
+        "Id_Restaurante": 3,
+        "Cpf_Cliente": "55566677799",
+        "Cpf_Entregador": "12378945600",
+        "Data_Entrega": "2024-07-24",
+        "Frete": 12.00
+    },
+    {
+        "Id_Pedido": 10,
+        "Valor_Pago": 30.00,
+        "Forma_Pagamento": "Dinheiro",
+        "Id_Restaurante": 1,
+        "Cpf_Cliente": "77788899900",
+        "Cpf_Entregador": "55566677788",
+        "Data_Entrega": "2024-07-24",
+        "Frete": 5.00
+    }
+]
