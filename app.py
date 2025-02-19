@@ -1,8 +1,10 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template
 from adapters.database_adapter import DatabaseAdapter
 from domain.services import NotaFiscalService, ClienteService
 from domain.models import NotaFiscal, NotaFiscalItens, Produto, Cliente
 from flask_cors import CORS
+import os
+import json
 
 app = Flask(__name__)
 
@@ -15,6 +17,52 @@ nota_service = NotaFiscalService(db_adapter)
 cliente_service = ClienteService(db_adapter)
 
 
+#------------------------Rotas para o front-end .html--------------------
+@app.route('/')
+def index0():
+    return render_template('index.html')
+
+@app.route('/index')
+def index1():
+    return render_template('index.html')
+
+@app.route('/loginUsu')
+def loginUsu():
+    return render_template('loginUsu.html')
+
+@app.route('/loginAdm')
+def loginAdm():
+    return render_template('loginAdm.html')
+
+@app.route('/AreaUsuario')
+def areauser():
+    return render_template('AreaUsuario.html')
+
+@app.route('/alterarDadosUso')
+def alterardadosuso():
+    return render_template('alterarDadosUso.html')
+
+@app.route('/carrinho')
+def carrinho():
+    return render_template('carrinho.html')
+'''
+@app.rout('/index')
+def index():
+    return render_template('index.html')
+'''
+@app.route('/cadastroUsu')
+def cadastroUsu():
+    return render_template('CadastroUsu.html')
+
+@app.route('/cardapio')
+def cardapio():
+    return render_template('refeicoes.html')
+
+#---------------Fim das rotas para o front-end .html-------------------------
+
+
+
+
 @app.route('/obterProdutos', methods=['GET'])
 def obter_produtos():
     try:
@@ -24,8 +72,6 @@ def obter_produtos():
         return jsonify(produtos)
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-
-
 
 @app.route('/salvarUsuario', methods=['POST'])
 def salvar_usuario():
@@ -42,8 +88,6 @@ def salvar_usuario():
 
     cliente_service.salvar_cliente()
     return jsonify({"message": "Cliente cadastrado com sucesso!"}), 201
-
-
 
 @app.route('/salvarNotaFiscal', methods=['POST'])
 def salvar_nota():
@@ -82,6 +126,24 @@ def obter_vendas():
         if not vendas:
             return jsonify({"message": "Nenhuma venda encontrada."}), 404
         return jsonify(vendas)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/dados/salvarCompra', methods=['POST'])
+def salvar_compra():
+    try:
+        data = request.json
+        if not data:
+            return jsonify({"error": "No data provided"}), 400
+
+        # Define the path to save the JSON file
+        save_path = os.path.join(os.getcwd(), 'dados', 'compra.json')
+
+        # Save the JSON data to the file
+        with open(save_path, 'w') as json_file:
+            json.dump(data, json_file, indent=2)
+
+        return jsonify({"message": "Compra salva com sucesso!"}), 201
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 

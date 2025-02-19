@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 headers: {
                     "Content-Type": "dados/usuario/json"
                 },
-                body: JSON.stringify({ nome,email,telefone, endereco,cpf,senha })
+                body: JSON.stringify({ nome, email, telefone, endereco, cpf, senha })
             });
 
             const data = await response.json();
@@ -32,3 +32,8 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
+
+
+
+
+

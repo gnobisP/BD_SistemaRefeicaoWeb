@@ -74,38 +74,44 @@ function abrirCarrinho() {
 }
 
 async function finalizarCompra() {
+    const pagamento = document.getElementById('paymentMethod').value;
+
     if (carrinho.length === 0) {
         alert('Carrinho vazio!');
         return;
     }
-
-    const pagamento = document.querySelector('input[name="pagamento"]:checked').id;
-    
     if (confirm(`Confirmar compra no valor de R$ ${calcularTotal().toFixed(2)} (${pagamento})?`)) {
         try {
-            // Envia os dados do carrinho para o backend Flask
-            const response = await fetch('http://127.0.0.1:5000/salvar-carrinho', {
+            // Cria um objeto com os dados da compra
+            const dadosCompra = {
+                itens: carrinho,
+                total: calcularTotal(),
+                pagamento: pagamento,
+                data: new Date().toLocaleString() // Adiciona a data da compra
+            };
+
+            // Converte o objeto para JSON
+            const json = JSON.stringify(dadosCompra, null, 2);
+
+            // Envia o JSON para o servidor para salvar na pasta /dados
+            const response = await fetch('/dados/salvarCompra', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
+                    'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({
-                    itens: carrinho,
-                    total: calcularTotal(),
-                    pagamento: pagamento
-                }),
+                body: json
             });
 
             if (response.ok) {
-                alert('Compra finalizada com sucesso!');
+                alert('Compra finalizada com sucesso! O arquivo JSON foi salvo na pasta /dados.');
                 esvaziarCarrinho();
                 document.getElementById('cartModal').classList.remove('show');
             } else {
-                alert('Erro ao finalizar a compra.');
+                throw new Error('Erro ao salvar o arquivo JSON.');
             }
         } catch (error) {
             console.error('Erro:', error);
-            alert('Erro ao conectar com o servidor.');
+            alert('Erro ao finalizar a compra.');
         }
     }
 }
@@ -167,11 +173,11 @@ function emptyCart() {
     cartItems.length = 0;
     renderCart();
 }
-
+/*
 function finalizePurchase() {
     const paymentMethod = document.getElementById('paymentMethod').value;
     alert(`Compra finalizada com sucesso! Método de pagamento: ${paymentMethod}`);
     emptyCart();
-}
+}*/
 
 document.addEventListener('DOMContentLoaded', fetchCartItems);

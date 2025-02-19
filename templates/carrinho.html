@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,13 +13,17 @@
             align-items: center;
             margin-bottom: 10px;
         }
+
         .cart-item img {
             width: 100px;
             height: auto;
         }
     </style>
 </head>
+
 <body>
+    <!-- Cabeçalho -->
+    <script src="../static/js/padroes/navbar.js"></script>
     <div class="container mt-5">
         <h1 class="mb-4">Carrinho de Compras</h1>
         <div id="cart-items"></div>
@@ -30,9 +35,16 @@
             </select>
         </div>
         <button class="btn btn-danger mt-4" onclick="emptyCart()">Esvaziar Carrinho</button>
-        <button class="btn btn-success mt-4" onclick="finalizePurchase()">Finalizar Compra</button>
+        <button class="btn btn-success mt-4" onclick="finalizarCompra()">Finalizar Compra</button>
         <button class="btn btn-secondary mt-4" onclick="continuaCompra()">Continuar Comprando</button>
     </div>
-    <script src="js/scriptCarrinho.js"></script>
+
+    
+    <!-- Script para rotas de navegacao -->
+    <script src="../static/js/sciptNavHtml.js"></script>
+    <!-- Script para o footer -->
+    <script src="../static/js/padroes/footer.js"></script>
+    <script src="../static/js/scriptCarrinho.js"></script>
 </body>
+
 </html>

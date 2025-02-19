@@ -4,7 +4,7 @@ document.write(`
             <div class="row">
                 <div class="col-md-4 footer-logo-box">
                     <a href="index.html">
-                        <img src="assets/img_footer/gcc.png" alt="logo_gcc" />
+                        <img src="../assets/img_footer/gcc.png" alt="logo_gcc" />
                     </a>
                     <h5 class="footer-logo-box">&gt; CEFET-MG_</h5>
                 </div>
