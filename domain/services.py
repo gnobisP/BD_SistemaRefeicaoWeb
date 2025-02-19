@@ -39,5 +39,5 @@ class ClienteService:
         self.db = db_adapter
 
     def salvar_cliente(self, cliente: Cliente):
-        query = "insert into CLIENTE (Cpf_Cliente, Nome, Endereco, Telefone, Email, Senha) values (%s, %s, %s, %s, %s, %s)"
-        self.db.execute(query, (cliente.cpf_cliente, cliente.nome, cliente.endereco, cliente.telefone, cliente.email, cliente.senha))
+        query = "insert into USUARIO (Cpf, Nome, Endereco, Telefone, Email, Senha, Cliente_Funcionario) values (%s, %s, %s, %s, %s, %s, %s)"
+        self.db.execute(query, (cliente.cpf_cliente, cliente.nome, cliente.endereco, cliente.telefone, cliente.email, cliente.senha, cliente.cliente))

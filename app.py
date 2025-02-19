@@ -87,17 +87,19 @@ def obter_produtos():
 @app.route('/salvarUsuario', methods=['POST'])
 def salvar_usuario():
     data = request.json
-    cliente_data = data['cliente']
-    cliente = Cliente()
+    #cliente_data = data['cliente']
+    cliente = Cliente(data['cpf'], data['nome'], data['endereco'],
+                      data['email'], data['telefone'], data['senha'], data['cliente'])
 
-    cliente.cpf_cliente = cliente_data['cpf']
-    cliente.nome = cliente_data['nome']
-    cliente.endereco = cliente_data['endereco']
-    cliente.email = cliente_data['email']
-    cliente.telefone = cliente_data['telefone']
-    cliente.senha = cliente_data['senha']
+    print(cliente.cpf_cliente)
+    print(cliente.nome)
+    print(cliente.endereco)
+    print(cliente.email)
+    print(cliente.telefone)
+    print(cliente.senha)
+    print(cliente.cliente)
 
-    cliente_service.salvar_cliente()
+    cliente_service.salvar_cliente(cliente)
     return jsonify({"message": "Cliente cadastrado com sucesso!"}), 201
 
 @app.route('/salvarNotaFiscal', methods=['POST'])

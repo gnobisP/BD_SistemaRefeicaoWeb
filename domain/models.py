@@ -26,3 +26,4 @@ class Cliente:
     email: str
     telefone: str
     senha: str
+    cliente: str

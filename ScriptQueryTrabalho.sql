@@ -64,6 +64,11 @@ create table AVALIA(
 	primary key(Cpf_Cliente, Id_Restaurante)
 );
 
+create table CUPOM(
+	Codigo numeric(3) primary key,
+	Valor_Desconto numeric() not null
+);
+
 -- RESTAURANTE
 INSERT INTO RESTAURANTE (Id_Restaurante, Nome, Localizacao, Inicio_Funcionamento, Termino_Funcionamento, Avaliacao) VALUES
 (1, 'Sabores do Sul', 'Rua das Flores, 123', '11:00', '22:00', 9),
@@ -136,3 +141,84 @@ select * from PEDIDO;
 select * from TEM_NO_CARDAPIO;
 select * from FAZ_PARTE;
 select * from AVALIA;
+
+--Trigger para não aceitar pedido se o restaurante estiver fechado
+create or replace function verifica_horario_funcionamento()
+returns trigger
+as $$
+begin
+	if (select current_time) < (select Inicio_Funcionamento from
+	RESTAURANTE where Id_Restaurante = new.id_restaurante) then
+		raise exception 'Pedidos não são aceitos fora do horário de funcionamento';
+	elsif (select current_time) > (select Termino_Funcionamento from
+	RESTAURANTE where Id_Restaurante = new.id_restaurante) then
+		raise exception 'Pedidos não são aceitos fora do horário de funcionamento';
+	end if;
+	return new;
+end
+$$ language plpgsql;
+
+drop trigger if exists verifica_horario_funcionamento on PEDIDO;
+
+create trigger verifica_horario_funcionamento
+before insert on PEDIDO
+for each row
+execute procedure verifica_horario_funcionamento();
+
+--Trigger para desconto no pix
+create or replace function da_desconto_pix()
+returns trigger
+as $$
+begin
+	if new.Forma_Pagamento = 'Pix' then
+		new.Valor_Pago := 0.9 * new.Valor_Pago;
+	end if;
+	return new;
+end
+$$ language plpgsql;
+
+drop trigger if exists da_desconto_pix on PEDIDO;
+
+create trigger da_desconto_pix
+before insert on PEDIDO
+for each row
+execute procedure da_desconto_pix();
+
+--Trigger para permitir avaliação
+create or replace function permite_avaliacao()
+returns trigger
+as $$
+begin
+	if not exists (select 0 from PEDIDO where Cpf_Cliente = new.Cpf_Cliente) then
+		raise exception 'Não é possível avaliar um restaurante sem fazer um pedido antes';
+	end if;
+	return new;
+end
+$$ language plpgsql;
+
+drop trigger if exists permite_avaliacao on AVALIA;
+
+create trigger permite_avaliacao
+before insert on AVALIA
+for each row
+execute procedure permite_avaliacao();
+
+--Trigger para calcular a nova nota do restaurante após uma avaliação
+create or replace function calcula_avaliacao_restaurante()
+returns trigger
+as $$
+begin
+	update RESTAURANTE R set Avaliacao =
+	(select avg(Nota) from AVALIA A
+	 where R.Id_Restaurante = A.Id_Restaurante);
+end
+$$ language plpgsql;
+
+drop trigger if exists calcula_avaliacao_restaurante on AVALIA;
+
+create trigger calcula_avaliacao_restaurante
+after insert or delete on AVALIA
+execute procedure calcula_avaliacao_restaurante();
+
+--Trigger 
+select * from USUARIO;
