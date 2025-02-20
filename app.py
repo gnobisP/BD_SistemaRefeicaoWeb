@@ -223,10 +223,19 @@ def salvar_Refeicao():
     print(refeicao.Categoria)
     print(refeicao.Descricao)
     print(refeicao.Url_foto)
+
+@app.route('/salvarCupom', methods=['POST'])
+def salvar_Cupom():
+    data = request.json
+    Cupom = Cupom(data['codigo'], data['desconto'])
+
+    print(Cupom.Codigo)
+    print(Cupom.Desconto)
+    
     
 
-    refeicao_service.salvar_Refeicao(refeicao)
-    return jsonify({"message": "Refeicao cadastrada com sucesso!"}), 201
+    cupom_service.salvar_Cupom(cupom)
+    return jsonify({"message": "Cupom cadastrada com sucesso!"}), 201
 
 @app.route('/salvarNotaFiscal', methods=['POST'])
 def salvar_nota():

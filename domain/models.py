@@ -36,3 +36,8 @@ class Refeicao:
     Categoria: str
     Descricao: str
     Url_foto: str
+
+@dataclass
+class Cupom:
+    Codigo: int
+    Desconto: float
