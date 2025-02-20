@@ -8,8 +8,10 @@
     (X) opção remover remove do jason
     () opção cupom
     () script carrinho
-        () remover itens no api/carrinho  
-        () modificar a rota para a certa
+        (x) remover itens no api/carrinho
+        (x) esvaziar carrinho  
+        (x) modificar a rota para a certa
+        () criar rota para enviar o carrinho para tabela pedidos (os itens do carrinho estão no json local)
 areaUsuario
     (X) modificar botao sair 
     (X) modificar botao alterar dados
@@ -28,7 +30,7 @@ Refeicao-adm
     () altera Refeicao
 Refeicao-user
     (x) concertar o filtar por categoria
-    () adicionar refeicao carrinho
+    () rota adicionar refeicao carrinho
 Refinamento final
     ()concertar footer
     ()concertar logo

@@ -58,7 +58,7 @@ function exibirRefeicoes(refeicoesExibidas) {
           <h5 class="card-title">${refeicao.nome}</h5>
           <p class="card-text">${refeicao.descricao}</p>
           <p class="card-text"><strong>R$ ${refeicao.preco}</strong></p>
-          <button class="btn btn-primary btn-adicionar" data-id="${refeicao.id_refeicao}">Adicionar ao Carrinho</button>
+          <button class="btn btn-primary btn-adicionar" onclick='adicionarNoCarrinho(${JSON.stringify(refeicao)})'>Adicionar ao Carrinho</button>
         </div>
       </div>
     `;
@@ -78,6 +78,18 @@ function filtrarPorCategoria() {
     const refeicoesFiltradas = refeicoes.filter(refeicao => refeicao.categoria === categoriaSelecionada);
     exibirRefeicoes(refeicoesFiltradas);
   }
+}
+
+async function adicionarNoCarrinho(refeicao) {
+  alert("teste");
+  const response = await fetch('/api/itens', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(refeicao),
+  });
+  return response.json();
 }
 
 // Chama a função para carregar as refeições quando a página carregar

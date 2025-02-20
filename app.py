@@ -89,32 +89,21 @@ def check_login():
 
 
 #------------------------Rotas para o carrinho-------------------------
-# rota para obter itens do carrinho
-#OLD
-'''@app.route('/api/itens', methods=['GET'])
-def get_itens():
-    try:
-        with open('dados/carrinho.json', 'r', encoding='utf-8') as f:
-            pedidos = json.load(f)
-        return jsonify(pedidos)
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
+'''
+ANTIGO
 def load_items():
-    if os.path.exists('dados/refeicoes.json',):
-        with open('dados/refeicoes.json', 'r') as file:
+    if os.path.exists('dados/carrinho.json'):
+        with open('dados/carrinho.json', 'r') as file:
             return json.load(file)
     return []
-
-def save_items(items):
-    with open('dados/refeicoes.json', 'w') as file:
-        json.dump(items, file, indent=4)    '''
-#NEW   
+'''
 
 def load_items():
     if os.path.exists('dados/carrinho.json'):
         with open('dados/carrinho.json', 'r') as file:
             return json.load(file)
     return []
+
 
 def save_items(items):
     with open('dados/carrinho.json', 'w') as file:
@@ -124,9 +113,29 @@ def save_items(items):
 def items():
     if request.method == 'GET':
         # Carrega os itens iniciais do JSON
-        items = load_items()
-        return jsonify(items)
+        data = load_items()
+
+        items = [Refeicao(item['Id_Refeicao'], item['Nome'], item['Preco'],
+                          item['Categoria'], item['Descricao'], item['Url_foto']) for item in data]
+        return jsonify([item.__dict__ for item in items])
     elif request.method == 'POST':
+        # Adiciona um novo item
+        '''
+        data = request.json
+
+        if not data:
+            abort(400, description="Item inválido")
+        
+        new_item = [Refeicao(item['Id_Refeicao'], item['Nome'], item['Preco'],
+                          item['Categoria'], item['Descricao'], item['Url_foto']) for item in data]
+        
+        items = load_items()
+        items.append(data)
+        save_items(items)
+
+        
+        return jsonify(new_item), 201
+        '''
         # Adiciona um novo item
         new_item = request.json
         if not new_item:
@@ -151,11 +160,6 @@ def delete_item(item_id):
     save_items(items)
     
     return jsonify(removed_item), 200
-#------------------------FIM Rotas para o carrinho-------------------------
-
-
-
-
 
 # rota para esvaziar carrinho
 @app.route('/api/esvaziaCarrinho', methods=['POST'])
@@ -166,6 +170,7 @@ def esvaziar():
         return jsonify({"message": "Carrinho esvaziado com sucesso!"}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+#------------------------FIM Rotas para o carrinho-------------------------
 
 @app.route('/obterProdutos', methods=['GET'])
 def obter_produtos():
