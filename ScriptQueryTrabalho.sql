@@ -5,6 +5,7 @@ drop table PEDIDO;
 drop table RESTAURANTE;
 drop table REFEICAO;
 drop table CLIENTE;
+drop table CUPOM;
 
 create table RESTAURANTE(
 	Id_Restaurante numeric(1) primary key,
@@ -21,11 +22,8 @@ create table REFEICAO(
 	Preco numeric(5, 2) not null,
 	Categoria varchar(20) not null,
 	Descricao varchar(50) not null,
-	Url_foto varchar(100) not null
+	Url_foto varchar(1000) not null
 );
-alter table REFEICAO alter column Url_foto type varchar(1000);
-update REFEICAO set Url_foto = 'https://img.freepik.com/fotos-premium/prato-tradicional-da-comida-brasileira-com-churrasco-feijao-arroz-e-salada_259266-1907.jpg'
-where Id_Refeicao = 1;
 
 create table Usuario(
 	Cpf varchar(11) primary key,
@@ -38,12 +36,13 @@ create table Usuario(
 );
 
 create table PEDIDO(
-	Id_Pedido numeric(5) primary key,
+	Id_Pedido serial primary key,
 	Valor_Pago numeric(5, 2) not null,
 	Forma_Pagamento varchar(20) not null,
 	Id_Restaurante numeric(1) not null references RESTAURANTE(Id_Restaurante),
 	Cpf_Cliente varchar(11) not null references USUARIO(Cpf),
-	Data_Entrega date not null
+	Data_Pedido date not null,
+	Codigo_Cupom numeric(3) references CUPOM(Codigo)
 );
 
 create table TEM_NO_CARDAPIO(
@@ -71,7 +70,6 @@ create table CUPOM(
 	Codigo numeric(3) primary key,
 	Valor_Desconto numeric(5, 2) not null
 );
-select * from CUPOM;
 
 -- RESTAURANTE
 INSERT INTO RESTAURANTE (Id_Restaurante, Nome, Localizacao, Inicio_Funcionamento, Termino_Funcionamento, Avaliacao) VALUES
@@ -80,14 +78,21 @@ INSERT INTO RESTAURANTE (Id_Restaurante, Nome, Localizacao, Inicio_Funcionamento
 (3, 'Sushi Express', 'Rua do Sol, 789', '12:00', '21:00', 9.6),
 (4, 'Cantina Mineira', 'Rua da Bahia, 1011', '11:00', '20:00', 8.0),
 (5, 'Burger Mania', 'Avenida Atlântica, 1213', '17:00', '23:00', 9.2);
-select * from REFEICAO;
+
+update RESTAURANTE set Termino_Funcionamento = '15:00' where Id_Restaurante = 1;
+
 -- REFEICAO
 INSERT INTO REFEICAO (Id_Refeicao, Nome, Preco, Categoria, Descricao, Url_foto) VALUES
-(1, 'Churrasco Misto', 55.00, 'Carnes', 'Variedade de carnes nobres', 'url_churrasco.jpg'),
-(2, 'Pizza Margherita', 35.00, 'Massa', 'Massa fina com mussarela e manjericão', 'url_pizza.jpg'),
-(3, 'Salmão Sashimi', 42.00, 'Peixes', 'Salmão fresco e saboroso', 'url_sashimi.jpg'),
-(4, 'Feijoada Mineira', 40.00, 'Caseira', 'Feijão preto com carnes variadas', 'url_feijoada.jpg'),
-(5, 'X-Tudo', 25.00, 'Lanche', 'Hambúrguer com todos os acompanhamentos', 'url_xtudo.jpg');
+(1, 'Churrasco Misto', 55.00, 'Carnes', 'Variedade de carnes nobres', 'https://img.freepik.com/fotos-premium/prato-tradicional
+-da-comida-brasileira-com-churrasco-feijao-arroz-e-salada_259266-1907.jpg'),
+(2, 'Pizza Margherita', 35.00, 'Massa', 'Massa fina com mussarela e manjericão', 'https://cloudfront-us-east-1.images.arcpublishing.com/
+estadao/YANRMY3TBZGWBCM2UDY6LEZJMA.jpg'),
+(3, 'Peixe à milanesa', 42.00, 'Peixes', 'Delicioso peixe à milanesa', 'https://img.band.uol.com.br/image/2023/05/23/
+file-de-peixe-a-milanesa-com-molho-tartaro-163648.jpg'),
+(4, 'Strogonoff de Frango', 40.00, 'Caseira', 'Feijão preto com carnes variadas', 'https://www.unileverfoodsolutions.com.br/dam/
+global-ufs/mcos/SLA/calcmenu/recipes/BR-recipes/chicken-&-other-poultry-dishes/strogonoff-de-frango/main-header.jpg'),
+(5, 'Hambúrguer com fritas', 25.00, 'Lanche', 'Hambúrguer com fritas', 'https://img.freepik.com/fotos-premium/saboroso-hamburguer
+-delicioso-com-batata-frita-e-molho-no-branco-fast-food_182527-4269.jpg');
 
 -- CLIENTE
 INSERT INTO USUARIO (Cpf, Nome, Endereco, Telefone, Email, Senha, Cliente_Funcionario) VALUES
@@ -97,15 +102,21 @@ INSERT INTO USUARIO (Cpf, Nome, Endereco, Telefone, Email, Senha, Cliente_Funcio
 ('44455566677', 'Pedro Oliveira', 'Rua D, 40', '66666666666', 'pedro@email.com', 'senha101', 'C'),
 ('88899900011', 'Carla Santos', 'Rua E, 50', '55555555555', 'carla@email.com', 'senha112', 'C'),
 ('55577711100', 'Arthur Rodrigues', 'Rua F, 90', '33333333333', 'arthur@email.com', 'senha202', 'F');
-select * from REFEICAO;
 
 -- PEDIDO
-INSERT INTO PEDIDO (Id_Pedido, Valor_Pago, Forma_Pagamento, Id_Restaurante, Cpf_Cliente, Data_Entrega) VALUES
-(1, 75.00, 'Cartão', 1, '12345678901', '2024-07-20'),
-(2, 40.00, 'Dinheiro', 2, '98765432109', '2024-07-20'),
-(3, 62.00, 'Cartão', 3, '11122233344', '2024-07-21'),
-(4, 35.00, 'Dinheiro', 1, '44455566677', '2024-07-21'),
-(5, 50.00, 'Cartão', 2, '88899900011', '2024-07-22');
+INSERT INTO PEDIDO (Valor_Pago, Forma_Pagamento, Id_Restaurante, Cpf_Cliente, Data_Pedido, Codigo_Cupom) VALUES
+(75.00, 'Cartão', 1, '12345678901', '2024-07-20', 1),
+(40.00, 'Dinheiro', 2, '98765432109', '2024-07-20', 2),
+(62.00, 'Cartão', 3, '11122233344', '2024-07-21', 3),
+(35.00, 'Dinheiro', 1, '44455566677', '2024-07-21', 4),
+(50.00, 'Cartão', 2, '88899900011', '2024-07-22', 5);
+
+insert into PEDIDO values(6, 50.00, 'Pix', 3, '12345678901', '2025-09-12');
+
+INSERT INTO PEDIDO (Valor_Pago, Forma_Pagamento, Id_Restaurante, Cpf_Cliente, Data_Pedido, Codigo_Cupom) VALUES
+(77.50, 'Dinheiro', 3, '12345678901', DATE '2025-02-20', 4);
+INSERT INTO PEDIDO (Valor_Pago, Forma_Pagamento, Id_Restaurante, Cpf_Cliente, Data_Pedido, Codigo_Cupom) VALUES
+(88.00, 'Cartão', 3, '12345678901', DATE '2025-02-20', 1);
 
 -- TEM_NO_CARDAPIO
 INSERT INTO TEM_NO_CARDAPIO (Id_Restaurante, Id_Refeicao, Quantidade_Disponivel) VALUES
@@ -130,6 +141,15 @@ INSERT INTO AVALIA (Cpf_Cliente, Id_Restaurante, Nota, Descricao) VALUES
 ('11122233344', 3, 8, 'Sushi fresco e saboroso.'),
 ('44455566677', 1, 6, 'Bom, mas poderia ser melhor.'),
 ('88899900011', 2, 8, 'Gostei muito da massa!');
+
+insert into AVALIA values('55577711100', 5, 7, 'Muito bom');
+
+INSERT INTO CUPOM (Codigo, Valor_Desconto) VALUES
+(1, 100.00),
+(2, 50.00),
+(3, 70.00),
+(4, 30.00),
+(5, 85.00);
 
 select * from RESTAURANTE;
 select * from REFEICAO;
@@ -205,17 +225,40 @@ create or replace function calcula_avaliacao_restaurante()
 returns trigger
 as $$
 begin
-	update RESTAURANTE R set Avaliacao =
-	(select avg(Nota) from AVALIA A
-	 where R.Id_Restaurante = A.Id_Restaurante);
-end
+    update RESTAURANTE 
+    set Avaliacao = coalesce((select avg(Nota) from AVALIA where Id_Restaurante = NEW.Id_Restaurante), 0.0)
+    where Id_Restaurante = NEW.Id_Restaurante;
+    return NEW;
+end;
 $$ language plpgsql;
 
 drop trigger if exists calcula_avaliacao_restaurante on AVALIA;
 
 create trigger calcula_avaliacao_restaurante
 after insert or delete on AVALIA
+for each row
 execute procedure calcula_avaliacao_restaurante();
+delete from AVALIA where Cpf_Cliente = '12345678901' and Id_Restaurante = 5;
+select * from RESTAURANTE;
+select * from AVALIA;
 
---Trigger 
-select * from USUARIO;
+--Trigger para aplicar o desconto do cupom
+create or replace function aplica_desconto_cupom()
+returns trigger
+as $$
+begin
+	if (new.Valor_Pago - (select Valor_Desconto from CUPOM where new.Codigo_Cupom = Codigo) <= 0) then
+		new.Valor_Pago := 0;
+	else
+		new.Valor_Pago = new.Valor_Pago - (select Valor_Desconto from CUPOM where new.Codigo_Cupom = Codigo);
+	end if;
+	return new;
+end
+$$ language plpgsql;
+
+drop trigger if exists aplica_desconto_cupom on PEDIDO;
+
+create trigger aplica_desconto_cupom
+before insert on PEDIDO
+for each row
+execute procedure aplica_desconto_cupom();
