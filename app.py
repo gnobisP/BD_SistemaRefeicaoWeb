@@ -118,28 +118,11 @@ def items():
     if request.method == 'GET':
         # Carrega os itens iniciais do JSON
         data = load_items()
+        items = [Refeicao(int(item['id_refeicao']), item['nome'], float(item['preco']),
+                  item['categoria'], item['descricao'], item['url_foto']) for item in data]
 
-        items = [Refeicao(item['Id_Refeicao'], item['Nome'], item['Preco'],
-                          item['Categoria'], item['Descricao'], item['Url_foto']) for item in data]
         return jsonify([item.__dict__ for item in items])
     elif request.method == 'POST':
-        # Adiciona um novo item
-        '''
-        data = request.json
-
-        if not data:
-            abort(400, description="Item inválido")
-        
-        new_item = [Refeicao(item['Id_Refeicao'], item['Nome'], item['Preco'],
-                          item['Categoria'], item['Descricao'], item['Url_foto']) for item in data]
-        
-        items = load_items()
-        items.append(data)
-        save_items(items)
-
-        
-        return jsonify(new_item), 201
-        '''
         # Adiciona um novo item
         new_item = request.json
         if not new_item:
@@ -213,14 +196,6 @@ def salvar_usuario():
     cliente = Cliente(data['cpf'], data['nome'], data['endereco'],
                       data['email'], data['telefone'], data['senha'], data['cliente'])
 
-    print(cliente.cpf_cliente)
-    print(cliente.nome)
-    print(cliente.endereco)
-    print(cliente.email)
-    print(cliente.telefone)
-    print(cliente.senha)
-    print(cliente.cliente)
-
     cliente_service.salvar_cliente(cliente)
     return jsonify({"message": "Cliente cadastrado com sucesso!"}), 201
 
@@ -230,13 +205,6 @@ def salvar_Refeicao():
     #cliente_data = data['cliente']
     refeicao = Refeicao(data['id_refeicao'], data['nome'], data['preco'],
                       data['categoria'], data['descricao'], data['url_foto'])
-
-    print(refeicao.Id_Refeicao)
-    print(refeicao.Nome)   
-    print(refeicao.Preco)
-    print(refeicao.Categoria)
-    print(refeicao.Descricao)
-    print(refeicao.Url_foto)
 
 @app.route('/salvarCupom', methods=['POST'])
 def salvar_Cupom():
