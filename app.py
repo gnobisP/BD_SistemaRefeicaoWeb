@@ -2,6 +2,8 @@ from flask import Flask, jsonify, request, render_template, abort
 from adapters.database_adapter import DatabaseAdapter
 from domain.services import NotaFiscalService, ClienteService, RefeicaoService, LoginService, CupomService
 from domain.models import NotaFiscal, NotaFiscalItens, Produto, Cliente, Refeicao, Cupom, Usuario
+from domain.services import NotaFiscalService, ClienteService, RefeicaoService, LoginService, CupomService, RestauranteService, AvaliacaoService
+from domain.models import NotaFiscal, NotaFiscalItens, Produto, Cliente, Refeicao, Cupom, Restaurante, Avaliacao
 from flask_cors import CORS
 import os
 import json
@@ -28,6 +30,10 @@ def index0():
 @app.route('/AreaFuncionario')
 def AreaFuncionario():
     return render_template('AreaFuncionario.html')
+
+@app.route('/Avaliacao')
+def Avaliacao():
+    return render_template('CadastrarAvaliacao.html')
 
 @app.route('/index')
 def index1():
@@ -255,6 +261,20 @@ def salvar_Cupom():
     cupom_service.salvar_Cupom(cupom)
     return jsonify({"message": "Cupom cadastrada com sucesso!"}), 201
 
+@app.route('/salvarRestaurante', methods=['POST'])
+def salvar_Restaurante():
+    data = request.json
+    restaurante = Restaurante(data['id_restaurante'], data['nome'], data['localizacao'],
+                      data['inicio_funcionamento'], data['termino_funcionamento'], data['avaliacao'])
+    print(restaurante.id_restaurante)
+    print(restaurante.nome)
+    print(restaurante.localizacao)
+    print(restaurante.inicio_funcionamento)
+    print(restaurante.termino_funcionamento)
+    print(restaurante.avaliacao)
+    restaurante_service.salvar_Restaurante(restaurante)
+    return jsonify({"message": "Restaurante cadastrado com sucesso!"}), 201
+
 @app.route('/salvarNotaFiscal', methods=['POST'])
 def salvar_nota():
     data = request.json
@@ -294,6 +314,18 @@ def obter_vendas():
         return jsonify(vendas)
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+@app.route('/salvarAval', methods=['POST'])
+def salvar_avaliacao():
+
+    data = request.json
+    avaliacao = Avaliacao(data['Cpf_Cliente'], data['Id_Restaurante'], data['Nota'], data['Descricao'])
+    print(avaliacao.Cpf_Cliente)
+    print(avaliacao.Id_restaurante)
+    print(avaliacao.Nota)
+    print(avaliacao.Descricao)
+    avaliacao_service.salvar_avaliacao(avaliacao)
+    return jsonify({"message": "Avaliação salva com sucesso!"}), 201
 
 
 #função do edson, modificar para o nosso

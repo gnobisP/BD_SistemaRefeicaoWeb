@@ -37,6 +37,9 @@ function irParaCadastroCupom() {
 function irParaAreaFuncionario() {
     window.location.href = "/AreaFuncionario"; // Certifique-se de que essa rota existe no Flask
 }
+function irParaAvaliacao() {
+    window.location.href = "/Avaliacao"; // Certifique-se de que essa rota existe no Flask
+}
 
 
 
