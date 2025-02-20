@@ -1,39 +1,23 @@
 {
   "itens": [
     {
-      "Categoria": "Carnes",
-      "Descricao": "Variedade de carnes nobres",
-      "Id_Refeicao": 1,
-      "Nome": "Churrasco Misto",
-      "Preco": 55,
-      "Url_foto": "https://img.freepik.com/fotos-premium/prato-tradicional-da-comida-brasileira-com-churrasco-feijao-arroz-e-salada_259266-1907.jpg"
+      "categoria": "Massa",
+      "descricao": "Massa fina com mussarela e manjeric\u00e3o",
+      "id_refeicao": 2,
+      "nome": "Pizza Margherita",
+      "preco": 35,
+      "url_foto": "url_pizza.jpg"
     },
     {
-      "Categoria": "Massas",
-      "Descricao": "Massa fina com mussarela e manjeric\u00e3o",
-      "Id_Refeicao": 2,
-      "Nome": "Pizza Margherita",
-      "Preco": 35,
-      "Url_foto": "https://img.freepik.com/fotos-premium/prato-tradicional-da-comida-brasileira-com-churrasco-feijao-arroz-e-salada_259266-1907.jpg"
-    },
-    {
-      "Categoria": "Massas",
-      "Descricao": "Massa fina com mussarela e manjeric\u00e3o",
-      "Id_Refeicao": 2,
-      "Nome": "Pizza Margherita",
-      "Preco": 35,
-      "Url_foto": "https://img.freepik.com/fotos-premium/prato-tradicional-da-comida-brasileira-com-churrasco-feijao-arroz-e-salada_259266-1907.jpg"
-    },
-    {
-      "Categoria": "Japonesa",
-      "Descricao": "Salm\u00e3o fresco e saboroso",
-      "Id_Refeicao": 3,
-      "Nome": "Salm\u00e3o Sashimi",
-      "Preco": 42,
-      "Url_foto": "https://img.freepik.com/fotos-premium/prato-tradicional-da-comida-brasileira-com-churrasco-feijao-arroz-e-salada_259266-1907.jpg"
+      "categoria": "Carnes",
+      "descricao": "Variedade de carnes nobres",
+      "id_refeicao": 1,
+      "nome": "Churrasco Misto",
+      "preco": 55,
+      "url_foto": "https://img.freepik.com/fotos-premium/prato-tradicional-da-comida-brasileira-com-churrasco-feijao-arroz-e-salada_259266-1907.jpg"
     }
   ],
-  "total": 167,
+  "total": 90,
   "pagamento": "card",
-  "data": "2/20/2025, 2:42:14 AM"
+  "data": "2/20/2025, 2:09:54 PM"
 }

@@ -48,11 +48,12 @@ class RefeicaoService:
 
     def obter_refeicoes(self):
         query = "select * from REFEICAO"
+
         return self.db.fetch_all(query)
     
     def salvar_Refeicao(self, refeicao: Refeicao):
         query = "insert into REFEICAO (Id_Refeicao, Nome, Preco, Categoria, Descricao, Url_foto) values (%s, %s, %s, %s, %s, %s)"
-        self.db.execute(query, (refeicao.Id_Refeicao, refeicao.Nome, refeicao.Preco, refeicao.Categoria, refeicao.Descricao, refeicao.Url_foto))
+        self.db.execute(query, (refeicao.id_refeicao, refeicao.nome, refeicao.preco, refeicao.categoria, refeicao.descricao, refeicao.url_foto))
     
 class LoginService:
     def __init__(self, db_adapter):

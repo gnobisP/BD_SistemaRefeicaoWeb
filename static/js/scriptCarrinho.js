@@ -31,7 +31,7 @@ async function removerItem(id) {
             method: 'DELETE'
         });
         if (response.ok) {
-            carrinho = carrinho.filter(pedido => pedido.Id_Pedido !== id); // Remove o item localmente
+            carrinho = carrinho.filter(pedido => pedido.id_Pedido !== id); // Remove o item localmente
             renderizarCarrinho(); // Renderiza o carrinho
             alert('Item removido com sucesso!');
         } else {
@@ -81,18 +81,18 @@ function renderizarCarrinho() {
         const itemHTML = `
             <div class="cart-item">
                 <div class="row">
-                    <img src="${item.Url_foto}" alt="${item.Nome}">
-                    <div class="col-6">${item.Nome}</div>
-                    <div class="col-2">R$ ${item.Preco.toFixed(2)}</div>
+                    <img src="${item.url_foto}" alt="${item.nome}">
+                    <div class="col-6">${item.nome}</div>
+                    <div class="col-2">R$ ${item.preco}</div>
                     <div class="col-2">
-                        <button class="btn btn-sm btn-danger" onclick="removerItem(${item.Id_Refeicao})">×</button>
+                        <button class="btn btn-sm btn-danger" onclick="removerItem(${item.id_refeicao})">×</button>
                     </div>
                 </div>
 
             </div>
         `;
         cartItems.innerHTML += itemHTML;
-        precoTotal += item.Preco; // Convert to number before adding
+        precoTotal += item.preco; // Convert to number before adding
     });
 
     const precoTotalHTML = `
