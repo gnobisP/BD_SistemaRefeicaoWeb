@@ -125,7 +125,7 @@ def salvar_usuario():
     cliente_service.salvar_cliente(cliente)
     return jsonify({"message": "Cliente cadastrado com sucesso!"}), 201
 
-    @app.route('/salvarRefeicao', methods=['POST'])
+@app.route('/salvarRefeicao', methods=['POST'])
 def salvar_Refeicao():
     data = request.json
     #cliente_data = data['cliente']
