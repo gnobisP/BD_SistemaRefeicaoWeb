@@ -69,6 +69,7 @@ def get_refeicoes():
         refeicoes = json.load(f)
     return jsonify(refeicoes)
 
+#rota para adicionar usuario no jss de login
 @app.route('/checklogin')
 def check_login():
     try:
@@ -78,6 +79,13 @@ def check_login():
         return jsonify(usuario)
     except Exception as e:
         return jsonify({"error": str(e)}, 500)
+
+#rota para adicionar itens no carrinho.html
+@app.route('/api/itens')
+def getiItens():
+    with open('dados/carrinho.json', 'r', encoding='utf-8') as f:
+        pedidos = json.load(f)
+    return jsonify(pedidos)
 
 @app.route('/obterProdutos', methods=['GET'])
 def obter_produtos():
@@ -116,6 +124,25 @@ def salvar_usuario():
 
     cliente_service.salvar_cliente(cliente)
     return jsonify({"message": "Cliente cadastrado com sucesso!"}), 201
+
+    @app.route('/salvarRefeicao', methods=['POST'])
+def salvar_Refeicao():
+    data = request.json
+    #cliente_data = data['cliente']
+    refeicao = Refeicao(data['idrefeicao'], data['nome'], data['preco'],
+                      data['categoria'], data['descricao'], data['idfoto'], data['refeicao'])
+
+    print(refeicao.idrefeicao)
+    print(refeicao.nome)   
+    print(refeicao.preco)
+    print(refeicao.categoria)
+    print(refeicao.descricao)
+    print(refeicao.idfoto)
+    print(refeicao.refeicao) 
+    
+
+    refeicao_service.salvar_Refeicao(refeicao)
+    return jsonify({"message": "Refeicao cadastrada com sucesso!"}), 201
 
 @app.route('/salvarNotaFiscal', methods=['POST'])
 def salvar_nota():

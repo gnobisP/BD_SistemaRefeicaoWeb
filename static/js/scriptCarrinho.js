@@ -1,46 +1,30 @@
-// script.js
+let carrinho = [];
+let precoTotal = 0
 
-let carrinho = JSON.parse(localStorage.getItem('../dados/carrinho')) || [];
-
-function atualizarLocalStorage() {
-    localStorage.setItem('../dados/carrinho', JSON.stringify(carrinho));
-}
-
-function adicionarAoCarrinho(refeicao) {
-    const itemExistente = carrinho.find(item => item.Id_Refeicao === refeicao.Id_Refeicao);
-    
-    if (itemExistente) {
-        itemExistente.quantidade++;
-    } else {
-        carrinho.push({
-            ...refeicao,
-            quantidade: 1
-        });
-    }
-    
-    atualizarLocalStorage();
-    atualizarContador();
-    abrirCarrinho();
-}
-
+// Função para remover um item do carrinho
 function removerItem(id) {
-    carrinho = carrinho.filter(item => item.Id_Refeicao !== id);
-    atualizarLocalStorage();
+    // Filtra o carrinho para remover o item com o Id_Pedido correspondente
+    carrinho = carrinho.filter(pedido => pedido.Id_Pedido !== id);
+
+    // Atualiza a interface
     atualizarContador();
     renderizarCarrinho();
 }
 
+
+// Função para esvaziar o carrinho
 function esvaziarCarrinho() {
-    carrinho = [];
-    atualizarLocalStorage();
-    atualizarContador();
-    renderizarCarrinho();
+    carrinho = []; // Limpa o carrinho
+    localStorage.setItem('../../dados/carrinho.json', JSON.stringify(carrinho));
+    renderizarCarrinho(); // Renderiza o carrinho
 }
 
+// Função para calcular o total do carrinho
 function calcularTotal() {
     return carrinho.reduce((total, item) => total + (item.Preco * item.quantidade), 0);
 }
 
+// Função para atualizar o contador de itens no carrinho
 function atualizarContador() {
     document.getElementById('cart-count').textContent = carrinho.length;
 }
@@ -48,44 +32,55 @@ function atualizarContador() {
 function renderizarCarrinho() {
     const cartItems = document.getElementById('cart-items');
     cartItems.innerHTML = '';
-    
+    precoTotal = 0; // Reset precoTotal before recalculating
+
     carrinho.forEach(item => {
         const itemHTML = `
             <div class="cart-item">
                 <div class="row">
+                    <img src="${item.Url_foto}" alt="${item.Nome}">
                     <div class="col-6">${item.Nome}</div>
                     <div class="col-2">R$ ${item.Preco.toFixed(2)}</div>
-                    <div class="col-2">Qtd: ${item.quantidade}</div>
                     <div class="col-2">
                         <button class="btn btn-sm btn-danger" onclick="removerItem(${item.Id_Refeicao})">×</button>
                     </div>
                 </div>
+
             </div>
         `;
         cartItems.innerHTML += itemHTML;
+        precoTotal += item.Preco; // Convert to number before adding
     });
 
-    document.getElementById('cart-total').textContent = calcularTotal().toFixed(2);
+    const precoTotalHTML = `
+    <div>
+        <p>Preço total: R$ ${precoTotal}</p>
+    </div>`;
+    cartItems.innerHTML += precoTotalHTML;
 }
 
+// Função para abrir o modal do carrinho
 function abrirCarrinho() {
-    renderizarCarrinho();
-    new bootstrap.Modal(document.getElementById('cartModal')).show();
+    renderizarCarrinho(); // Renderiza o carrinho antes de abrir o modal
+    new bootstrap.Modal(document.getElementById('cartModal')).show(); // Abre o modal
 }
 
+// Função para finalizar a compra
 async function finalizarCompra() {
-    const pagamento = document.getElementById('paymentMethod').value;
+    const pagamento = document.getElementById('paymentMethod').value; // Obtém o método de pagamento
 
     if (carrinho.length === 0) {
-        alert('Carrinho vazio!');
+        alert('Carrinho vazio!'); // Alerta se o carrinho estiver vazio
         return;
     }
-    if (confirm(`Confirmar compra no valor de R$ ${calcularTotal().toFixed(2)} (${pagamento})?`)) {
+
+    // Confirmação da compra
+    if (confirm(`Confirmar compra no valor de R$ ${precoTotal} (${pagamento})?`)) {
         try {
             // Cria um objeto com os dados da compra
             const dadosCompra = {
                 itens: carrinho,
-                total: calcularTotal(),
+                total: precoTotal,
                 pagamento: pagamento,
                 data: new Date().toLocaleString() // Adiciona a data da compra
             };
@@ -103,9 +98,7 @@ async function finalizarCompra() {
             });
 
             if (response.ok) {
-                alert('Compra finalizada com sucesso! O arquivo JSON foi salvo na pasta /dados.');
-                esvaziarCarrinho();
-                document.getElementById('cartModal').classList.remove('show');
+                esvaziarCarrinho(); // Esvazia o carrinho após a compra
             } else {
                 throw new Error('Erro ao salvar o arquivo JSON.');
             }
@@ -114,70 +107,43 @@ async function finalizarCompra() {
             alert('Erro ao finalizar a compra.');
         }
     }
+    window.location.href = "/AreaUsuario"
 }
 
-async function carregarDadosDoJson() {
-    try {
-        const response = await fetch('../dados/carrinho.json');
-        const data = await response.json();
-        data.forEach(item => adicionarAoCarrinho(item));
-    } catch (error) {
-        console.error('Erro ao carregar dados do JSON:', error);
-    }
-}
-
+// Função para continuar comprando (redireciona para a página de refeições)
 function continuaCompra() {
-    window.location.href = 'refeicoes.html';
+    window.location.href = "/cardapio"
 }
 
-// Carregar dados do JSON quando a página for carregada
-window.onload = carregarDadosDoJson;
 
-let cartItems = [];
-
-async function fetchCartItems() {
+async function carregarItens() {
     try {
-        const response = await fetch('dados/carrinho.json');
-        cartItems = await response.json();
-        renderCart();
+        const response = await fetch('/api/itens');
+
+        // Verifica se a resposta é OK (status 200-299)
+        if (!response.ok) {
+            throw new Error(`Erro na requisição: ${response.status} ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        console.log('Dados recebidos:', data);
+
+        // Verifica se os dados são um array
+        if (!Array.isArray(data)) {
+            throw new Error('Dados inválidos: esperado um array de pedidos');
+        }
+
+        // Atribui os dados diretamente ao carrinho
+        carrinho = data;
+
+
+        // Renderiza o carrinho
+        renderizarCarrinho();
+
     } catch (error) {
-        console.error('Erro ao carregar os itens do carrinho:', error);
+        console.error('Erro ao carregar os itens:', error);
+        alert('Erro ao carregar os itens. Verifique o console para mais detalhes.');
     }
 }
-
-function renderCart() {
-    const cartItemsContainer = document.getElementById('cart-items');
-    cartItemsContainer.innerHTML = '';
-    cartItems.forEach((item, index) => {
-        const cartItem = document.createElement('div');
-        cartItem.className = 'cart-item';
-        cartItem.innerHTML = `
-            <img src="${item.Url_foto}" alt="${item.Nome}">
-            <div>
-                <h5>${item.Nome}</h5>
-                <p>${item.Descricao}</p>
-                <p>R$ ${item.Preco.toFixed(2)}</p>
-            </div>
-            <button class="btn btn-danger" onclick="removeItem(${index})">Remover</button>
-        `;
-        cartItemsContainer.appendChild(cartItem);
-    });
-}
-
-function removeItem(index) {
-    cartItems.splice(index, 1);
-    renderCart();
-}
-
-function emptyCart() {
-    cartItems.length = 0;
-    renderCart();
-}
-/*
-function finalizePurchase() {
-    const paymentMethod = document.getElementById('paymentMethod').value;
-    alert(`Compra finalizada com sucesso! Método de pagamento: ${paymentMethod}`);
-    emptyCart();
-}*/
-
-document.addEventListener('DOMContentLoaded', fetchCartItems);
+// Carrega os itens quando a página é carregada
+window.onload = carregarItens;
