@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request, render_template, abort
 from adapters.database_adapter import DatabaseAdapter
-from domain.services import NotaFiscalService, ClienteService, RefeicaoService, LoginService, CupomService
-from domain.models import NotaFiscal, NotaFiscalItens, Produto, Cliente, Refeicao, Cupom
+from domain.services import NotaFiscalService, ClienteService, RefeicaoService, LoginService, CupomService, RestauranteService
+from domain.models import NotaFiscal, NotaFiscalItens, Produto, Cliente, Refeicao, Cupom, Restaurante
 from flask_cors import CORS
 import os
 import json
@@ -222,6 +222,20 @@ def salvar_Cupom():
 
     cupom_service.salvar_Cupom(cupom)
     return jsonify({"message": "Cupom cadastrada com sucesso!"}), 201
+
+@app.route('/salvarRestaurante', methods=['POST'])
+def salvar_Restaurante():
+    data = request.json
+    restaurante = Restaurante(data['id_restaurante'], data['nome'], data['localizacao'],
+                      data['inicio_funcionamento'], data['termino_funcionamento'], data['avaliacao'])
+    print(restaurante.id_restaurante)
+    print(restaurante.nome)
+    print(restaurante.localizacao)
+    print(restaurante.inicio_funcionamento)
+    print(restaurante.termino_funcionamento)
+    print(restaurante.avaliacao)
+    restaurante_service.salvar_Restaurante(restaurante)
+    return jsonify({"message": "Restaurante cadastrado com sucesso!"}), 201
 
 @app.route('/salvarNotaFiscal', methods=['POST'])
 def salvar_nota():

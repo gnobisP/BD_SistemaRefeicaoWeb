@@ -1,4 +1,4 @@
-from domain.models import NotaFiscal, Cliente, Refeicao, Cupom
+from domain.models import NotaFiscal, Cliente, Refeicao, Cupom, Restaurante
 
 class NotaFiscalService:
     def __init__(self, db_adapter):
@@ -74,3 +74,15 @@ class CupomService:
     def obter_cupons(self):
         query = "select * from CUPOM"
         return self.db.fetch_all(query)
+
+class RestauranteService:
+    def __init__(self, db_adapter):
+        self.db = db_adapter
+
+    def obter_restaurantes(self):
+        query = "select * from RESTAURANTE"
+        return self.db.fetch_all(query)
+
+    def salvar_Restaurante(self, restaurante: Restaurante):
+        query = "insert into RESTAURANTE (Id_Restaurante, Nome, Localizacao, Inicio_Funcionamento, Termino_Funcionamento, Avaliacao) values (%s, %s, %s, %s, %s, %s)"
+        self.db.execute(query, (restaurante.Id_restaurante, restaurante.Nome, restaurante.Localizacao, restaurante.Inicio_Funcionamento, restaurante.Termino_Funcionamento, restaurante.Avaliacao))

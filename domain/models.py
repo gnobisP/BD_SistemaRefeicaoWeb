@@ -1,5 +1,6 @@
 from dataclasses import dataclass, field
 from datetime import datetime
+from datetime import time
 
 @dataclass
 class Produto:
@@ -41,3 +42,12 @@ class Refeicao:
 class Cupom:
     Codigo: int
     Desconto: float
+
+@dataclass
+class Restaurante:
+    id_restaurante: int
+    nome: str
+    localizacao: str
+    inicio_funcionamento: time
+    termino_funcionamento: time
+    avaliacao: float
