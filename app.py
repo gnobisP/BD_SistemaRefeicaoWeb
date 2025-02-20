@@ -102,6 +102,25 @@ def salvar_usuario():
     cliente_service.salvar_cliente(cliente)
     return jsonify({"message": "Cliente cadastrado com sucesso!"}), 201
 
+    @app.route('/salvarRefeicao', methods=['POST'])
+def salvar_Refeicao():
+    data = request.json
+    #cliente_data = data['cliente']
+    refeicao = Refeicao(data['idrefeicao'], data['nome'], data['preco'],
+                      data['categoria'], data['descricao'], data['idfoto'], data['refeicao'])
+
+    print(refeicao.idrefeicao)
+    print(refeicao.nome)   
+    print(refeicao.preco)
+    print(refeicao.categoria)
+    print(refeicao.descricao)
+    print(refeicao.idfoto)
+    print(refeicao.refeicao) 
+    
+
+    refeicao_service.salvar_Refeicao(refeicao)
+    return jsonify({"message": "Refeicao cadastrada com sucesso!"}), 201
+
 @app.route('/salvarNotaFiscal', methods=['POST'])
 def salvar_nota():
     data = request.json
