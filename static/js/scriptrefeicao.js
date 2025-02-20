@@ -5,9 +5,13 @@ let refeicoes = [];
 async function carregarRefeicoes() {
   try {
     // Carrega os dados da API Flask
-    const response = await fetch('/api/refeicoes');
+    const response = await fetch('/obterRefeicoes');
+    if(!response.ok){
+      throw new Error("Erro ao carregar refeições: " + response.statusText);
+    }
+    
     refeicoes = await response.json();
-
+    console.log('Dados recebidos:', refeicoes);
     // Preenche o select box com as categorias
     preencherCategorias();
 
@@ -49,12 +53,12 @@ function exibirRefeicoes(refeicoesExibidas) {
 
     card.innerHTML = `
       <div class="card">
-        <img src="${refeicao.Url_foto}" class="card-img-top" alt="${refeicao.Nome}">
+        <img src="${refeicao.url_foto}" class="card-img-top" alt="${refeicao.Nome}">
         <div class="card-body">
-          <h5 class="card-title">${refeicao.Nome}</h5>
-          <p class="card-text">${refeicao.Descricao}</p>
-          <p class="card-text"><strong>R$ ${refeicao.Preco.toFixed(2)}</strong></p>
-          <button class="btn btn-primary btn-adicionar" data-id="${refeicao.Id_Refeicao}">Adicionar ao Carrinho</button>
+          <h5 class="card-title">${refeicao.nome}</h5>
+          <p class="card-text">${refeicao.descricao}</p>
+          <p class="card-text"><strong>R$ ${refeicao.preco}</strong></p>
+          <button class="btn btn-primary btn-adicionar" data-id="${refeicao.id_refeicao}">Adicionar ao Carrinho</button>
         </div>
       </div>
     `;

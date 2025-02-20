@@ -41,3 +41,19 @@ class ClienteService:
     def salvar_cliente(self, cliente: Cliente):
         query = "insert into USUARIO (Cpf, Nome, Endereco, Telefone, Email, Senha, Cliente_Funcionario) values (%s, %s, %s, %s, %s, %s, %s)"
         self.db.execute(query, (cliente.cpf_cliente, cliente.nome, cliente.endereco, cliente.telefone, cliente.email, cliente.senha, cliente.cliente))
+
+class RefeicaoService:
+    def __init__(self, db_adapter):
+        self.db = db_adapter
+
+    def obter_refeicoes(self):
+        query = "select * from REFEICAO"
+        return self.db.fetch_all(query)
+    
+class LoginService:
+    def __init__(self, db_adapter):
+        self.db = db_adapter
+    
+    def check_login(self):
+        query = "select Email, Senha from USUARIO"
+        return self.db.fetch_all(query)

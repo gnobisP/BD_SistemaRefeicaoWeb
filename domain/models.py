@@ -27,3 +27,12 @@ class Cliente:
     telefone: str
     senha: str
     cliente: str
+
+@dataclass
+class Refeicao:
+    Id_Refeicao: int
+    Nome: str
+    Preco: float
+    Categoria: str
+    Descricao: str
+    Url_foto: str

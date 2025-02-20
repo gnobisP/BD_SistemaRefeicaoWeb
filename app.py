@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, request, render_template
 from adapters.database_adapter import DatabaseAdapter
-from domain.services import NotaFiscalService, ClienteService
+from domain.services import NotaFiscalService, ClienteService, RefeicaoService, LoginService
 from domain.models import NotaFiscal, NotaFiscalItens, Produto, Cliente
 from flask_cors import CORS
 import os
@@ -15,7 +15,8 @@ DATABASE_URL = "postgresql://postgres:postgres@localhost/trabalhobd"
 db_adapter = DatabaseAdapter(DATABASE_URL)
 nota_service = NotaFiscalService(db_adapter)
 cliente_service = ClienteService(db_adapter)
-
+refeicao_service = RefeicaoService(db_adapter)
+login_service = LoginService(db_adapter)
 
 #------------------------Rotas para o front-end .html--------------------
 @app.route('/')
@@ -68,11 +69,15 @@ def get_refeicoes():
         refeicoes = json.load(f)
     return jsonify(refeicoes)
 
-@app.route('/api/checklogin')
-def checklogin():
-    with open('dados/usuario.json', 'r', encoding='utf-8') as f:
-        usuario = json.load(f)
-    return jsonify(usuario)
+@app.route('/checklogin')
+def check_login():
+    try:
+        usuario = login_service.check_login()
+        if not usuario:
+            return jsonify({"message": "Usuário não encontrado"}), 404
+        return jsonify(usuario)
+    except Exception as e:
+        return jsonify({"error": str(e)}, 500)
 
 @app.route('/obterProdutos', methods=['GET'])
 def obter_produtos():
@@ -81,6 +86,16 @@ def obter_produtos():
         if not produtos:
             return jsonify({"message": "Nenhum produto encontrado."}), 404
         return jsonify(produtos)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route("/obterRefeicoes", methods=['GET'])
+def obter_refeicoes():
+    try:
+        refeicoes = refeicao_service.obter_refeicoes()
+        if not refeicoes:
+            return jsonify({"message": "Nenhuma refeicao encontrada."}), 404
+        return jsonify(refeicoes)
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
