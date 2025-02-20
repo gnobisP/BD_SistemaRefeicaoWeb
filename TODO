@@ -24,6 +24,8 @@ Login
 (X) Criar visualizar pedidos na area do areaUsuario
 () Corrigir login // Returns an array of the key/value pairs of an object Object.entries(object)
 ##ARTHUR##
+() Criar cupom e trigger
+() Testar triggers
 caminho front-back!!
 ##GALLEGOS##
 caminho front-back!
