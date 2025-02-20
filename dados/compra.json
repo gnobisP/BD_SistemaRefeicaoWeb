@@ -1,0 +1,39 @@
+{
+  "itens": [
+    {
+      "Categoria": "Carnes",
+      "Descricao": "Variedade de carnes nobres",
+      "Id_Refeicao": 1,
+      "Nome": "Churrasco Misto",
+      "Preco": 55,
+      "Url_foto": "https://img.freepik.com/fotos-premium/prato-tradicional-da-comida-brasileira-com-churrasco-feijao-arroz-e-salada_259266-1907.jpg"
+    },
+    {
+      "Categoria": "Massas",
+      "Descricao": "Massa fina com mussarela e manjeric\u00e3o",
+      "Id_Refeicao": 2,
+      "Nome": "Pizza Margherita",
+      "Preco": 35,
+      "Url_foto": "https://img.freepik.com/fotos-premium/prato-tradicional-da-comida-brasileira-com-churrasco-feijao-arroz-e-salada_259266-1907.jpg"
+    },
+    {
+      "Categoria": "Massas",
+      "Descricao": "Massa fina com mussarela e manjeric\u00e3o",
+      "Id_Refeicao": 2,
+      "Nome": "Pizza Margherita",
+      "Preco": 35,
+      "Url_foto": "https://img.freepik.com/fotos-premium/prato-tradicional-da-comida-brasileira-com-churrasco-feijao-arroz-e-salada_259266-1907.jpg"
+    },
+    {
+      "Categoria": "Japonesa",
+      "Descricao": "Salm\u00e3o fresco e saboroso",
+      "Id_Refeicao": 3,
+      "Nome": "Salm\u00e3o Sashimi",
+      "Preco": 42,
+      "Url_foto": "https://img.freepik.com/fotos-premium/prato-tradicional-da-comida-brasileira-com-churrasco-feijao-arroz-e-salada_259266-1907.jpg"
+    }
+  ],
+  "total": 167,
+  "pagamento": "card",
+  "data": "2/19/2025, 10:28:35 PM"
+}

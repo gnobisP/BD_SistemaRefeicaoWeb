@@ -68,11 +68,19 @@ def get_refeicoes():
         refeicoes = json.load(f)
     return jsonify(refeicoes)
 
+#rota para adicionar usuario no jss de login
 @app.route('/api/checklogin')
 def checklogin():
     with open('dados/usuario.json', 'r', encoding='utf-8') as f:
         usuario = json.load(f)
     return jsonify(usuario)
+
+#rota para adicionar itens no carrinho.html
+@app.route('/api/itens')
+def getiItens():
+    with open('dados/carrinho.json', 'r', encoding='utf-8') as f:
+        pedidos = json.load(f)
+    return jsonify(pedidos)
 
 @app.route('/obterProdutos', methods=['GET'])
 def obter_produtos():

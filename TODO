@@ -1,7 +1,6 @@
 
 ##GUSTAVO##
 (X) Criar tela de AlterarCadastraUsuario
-() Criar tela de CadastroFuncionario
 () Criar tela cadastrarCupom
 () Criar tela CadastroAlimento
 (X) Criar telas de refeições
@@ -18,7 +17,7 @@ carrinho
     () concertar navBar
     () concertar botoes
 Cardapio
-    () puxar itens do jason
+    (X) puxar itens do jason
 Login
     (X) modificar pushButton Entrar
 
