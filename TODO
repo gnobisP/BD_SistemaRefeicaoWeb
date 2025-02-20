@@ -38,10 +38,13 @@ Refinamento final
 
 (X) Criar visualizar pedidos na area do areaUsuario
 (X) Corrigir login // Returns an array of the key/value pairs of an object Object.entries(object)
-() achar link de imagem
+() rota alterar usuario
+() 
 ##ARTHUR##
 () Criar cupom e trigger
 () Testar triggers
 caminho front-back!!
 ##GALLEGOS##
 caminho front-back!
+() achar link de imagem
+() "Não possui um cadastro? Cadastre agora" para funcionario
