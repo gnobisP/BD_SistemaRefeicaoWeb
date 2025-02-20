@@ -35,7 +35,14 @@
             <select class="form-control" id="paymentMethod">
                 <option value="card">cartão</option>
                 <option value="cash">dinheiro</option>
+                <option value="pix">pix</option>
             </select>
+        </div>
+        <div class="mt-4">
+            <h4>Adicionar cupom:</h4>
+            <label for="cupom" class="form-label">Codigo cupom</label>
+            <input type="text" class="form-control" id="cupom" placeholder="Digite o codigo do cupom" required>
+            <button class="btn btn-secondary mt-4" onclick="obter_cupons()">Verificar cupom</button>
         </div>
         <button class="btn btn-danger mt-4" onclick="esvaziarCarrinho()">Esvaziar Carrinho</button>
         <button class="btn btn-success mt-4" onclick="finalizarCompra()">Finalizar Compra</button>
@@ -45,6 +52,7 @@
     
     <!-- Script para rotas de navegacao -->
    <script src="../static/js/sciptNavHtml.js"></script>
+   <script src="../static/js/scriptCupom.js"></script>
     <!-- Script para o footer -->
     <script src="../static/js/padroes/footer.js"></script>
     

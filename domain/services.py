@@ -63,10 +63,14 @@ class LoginService:
         query = "select Email, Senha from USUARIO"
         return self.db.fetch_all(query)
 
-class cupom_service:
+class CupomService:
     def __init__(self, db_adapter):
         self.db = db_adapter
 
     def salvar_Cupom(self, cupom: Cupom):
-        query = "insert into CUPOM (Codigo, Desconto) values (%s, %s)"
+        query = "insert into CUPOM (Codigo, Valor_Desconto) values (%s, %s)"
         self.db.execute(query, (cupom.Codigo, cupom.Desconto))
+
+    def obter_cupons(self):
+        query = "select * from CUPOM"
+        return self.db.fetch_all(query)
