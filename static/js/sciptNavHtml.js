@@ -31,6 +31,9 @@ function irParaindex() {
 function irParaCadastroRefeicao() {
     window.location.href = "/CadastroRef"; // Certifique-se de que essa rota existe no Flask
 }
+function irParaCadastroCupom() {
+    window.location.href = "/CadastroCupom"; // Certifique-se de que essa rota existe no Flask
+}
 
 
 
