@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request, render_template
 from adapters.database_adapter import DatabaseAdapter
 from domain.services import NotaFiscalService, ClienteService, RefeicaoService, LoginService
-from domain.models import NotaFiscal, NotaFiscalItens, Produto, Cliente
+from domain.models import NotaFiscal, NotaFiscalItens, Produto, Cliente, Refeicao
 from flask_cors import CORS
 import os
 import json
@@ -133,16 +133,15 @@ def salvar_usuario():
 def salvar_Refeicao():
     data = request.json
     #cliente_data = data['cliente']
-    refeicao = Refeicao(data['idrefeicao'], data['nome'], data['preco'],
-                      data['categoria'], data['descricao'], data['idfoto'], data['refeicao'])
+    refeicao = Refeicao(data['id_refeicao'], data['nome'], data['preco'],
+                      data['categoria'], data['descricao'], data['url_foto'])
 
-    print(refeicao.idrefeicao)
-    print(refeicao.nome)   
-    print(refeicao.preco)
-    print(refeicao.categoria)
-    print(refeicao.descricao)
-    print(refeicao.idfoto)
-    print(refeicao.refeicao) 
+    print(refeicao.Id_Refeicao)
+    print(refeicao.Nome)   
+    print(refeicao.Preco)
+    print(refeicao.Categoria)
+    print(refeicao.Descricao)
+    print(refeicao.Url_foto)
     
 
     refeicao_service.salvar_Refeicao(refeicao)

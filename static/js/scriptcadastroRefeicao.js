@@ -2,16 +2,16 @@ async function faz_cadastroR(){
     const nome = document.getElementById("nome").value;
     const preco = document.getElementById("preco").value;
     const descricao = document.getElementById("descricao").value;
-    const idrefeicao = document.getElementById("id_refeicao").value;
+    const id_refeicao = document.getElementById("id_refeicao").value;
     const categoria = document.getElementById("categoria").value;
-    const idfoto = document.getElementById("id_foto").value;
+    const url_foto = document.getElementById("id_foto").value;
 
     console.log(nome);
     console.log(preco);
     console.log(descricao);
-    console.log(idrefeicao);
+    console.log(id_refeicao);
     console.log(categoria);
-    console.log(idfoto);
+    console.log(url_foto);
 
     await fetch('/salvarRefeicao',{
         method: "POST",
@@ -20,7 +20,7 @@ async function faz_cadastroR(){
         },
         body: JSON.stringify({
             nome: nome, preco: preco, descricao: descricao,
-            idrefeicao: idrefeicao, categoria: categoria, idfoto: idfoto, refeicao: 'R'
+            id_refeicao: id_refeicao, categoria: categoria, url_foto: url_foto
         })
     }).then(response => {
         if(!response.ok){
