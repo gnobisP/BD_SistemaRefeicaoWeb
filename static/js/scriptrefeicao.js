@@ -30,7 +30,7 @@ function preencherCategorias() {
   const selectCategoria = document.getElementById('categoria');
 
   // Obtém todas as categorias únicas
-  const categorias = [...new Set(refeicoes.map(refeicao => refeicao.Categoria))];
+  const categorias = [...new Set(refeicoes.map(refeicao => refeicao.categoria))];
 
   // Adiciona as opções ao select box
   categorias.forEach(categoria => {
@@ -75,7 +75,7 @@ function filtrarPorCategoria() {
     exibirRefeicoes(refeicoes); // Exibe todas as refeições
   } else {
     // Filtra as refeições pela categoria selecionada
-    const refeicoesFiltradas = refeicoes.filter(refeicao => refeicao.Categoria === categoriaSelecionada);
+    const refeicoesFiltradas = refeicoes.filter(refeicao => refeicao.categoria === categoriaSelecionada);
     exibirRefeicoes(refeicoesFiltradas);
   }
 }

@@ -1,10 +1,11 @@
-from flask import Flask, jsonify, request, render_template
+from flask import Flask, jsonify, request, render_template, abort
 from adapters.database_adapter import DatabaseAdapter
 from domain.services import NotaFiscalService, ClienteService, RefeicaoService, LoginService
 from domain.models import NotaFiscal, NotaFiscalItens, Produto, Cliente, Refeicao
 from flask_cors import CORS
 import os
 import json
+
 
 app = Flask(__name__)
 
@@ -67,12 +68,13 @@ def cadastroRefeicao():
 
 
 #rota para adicionar refeicao no refeicoes.html
+'''
 @app.route('/api/refeicoes')
 def get_refeicoes():
     with open('dados/refeicoes.json', 'r', encoding='utf-8') as f:
         refeicoes = json.load(f)
     return jsonify(refeicoes)
-
+'''
 #rota para adicionar usuario no jss de login
 @app.route('/checklogin')
 def check_login():
@@ -84,8 +86,12 @@ def check_login():
     except Exception as e:
         return jsonify({"error": str(e)}, 500)
 
+
+
+#------------------------Rotas para o carrinho-------------------------
 # rota para obter itens do carrinho
-@app.route('/api/itens', methods=['GET'])
+#OLD
+'''@app.route('/api/itens', methods=['GET'])
 def get_itens():
     try:
         with open('dados/carrinho.json', 'r', encoding='utf-8') as f:
@@ -93,34 +99,63 @@ def get_itens():
         return jsonify(pedidos)
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+def load_items():
+    if os.path.exists('dados/refeicoes.json',):
+        with open('dados/refeicoes.json', 'r') as file:
+            return json.load(file)
+    return []
 
-# rota para adicionar itens ao carrinho
-@app.route('/api/itens', methods=['POST'])
-def add_item():
-    try:
-        data = request.json
-        with open('dados/carrinho.json', 'r+', encoding='utf-8') as f:
-            pedidos = json.load(f)
-            pedidos.append(data)
-            f.seek(0)
-            json.dump(pedidos, f, indent=2)
-        return jsonify({"message": "Item adicionado com sucesso!"}), 201
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
+def save_items(items):
+    with open('dados/refeicoes.json', 'w') as file:
+        json.dump(items, file, indent=4)    '''
+#NEW   
 
-# rota para remover itens do carrinho
+def load_items():
+    if os.path.exists('dados/carrinho.json'):
+        with open('dados/carrinho.json', 'r') as file:
+            return json.load(file)
+    return []
+
+def save_items(items):
+    with open('dados/carrinho.json', 'w') as file:
+        json.dump(items, file, indent=4)
+
+@app.route('/api/itens', methods=['GET', 'POST'])
+def items():
+    if request.method == 'GET':
+        # Carrega os itens iniciais do JSON
+        items = load_items()
+        return jsonify(items)
+    elif request.method == 'POST':
+        # Adiciona um novo item
+        new_item = request.json
+        if not new_item:
+            abort(400, description="Item inválido")
+        
+        items = load_items()
+        items.append(new_item)
+        save_items(items)
+        
+        return jsonify(new_item), 201
+
 @app.route('/api/itens/<int:item_id>', methods=['DELETE'])
-def remove_item(item_id):
-    try:
-        with open('dados/carrinho.json', 'r+', encoding='utf-8') as f:
-            pedidos = json.load(f)
-            pedidos = [pedido for pedido in pedidos if pedido['Id_Pedido'] != item_id]
-            f.seek(0)
-            f.truncate()
-            json.dump(pedidos, f, indent=2)
-        return jsonify({"message": "Item removido com sucesso!"}), 200
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
+def delete_item(item_id):
+    items = load_items()
+    
+    # Verifica se o item existe
+    if item_id < 0 or item_id >= len(items):
+        abort(404, description="Item não encontrado")
+    
+    # Remove o item
+    removed_item = items.pop(item_id)
+    save_items(items)
+    
+    return jsonify(removed_item), 200
+#------------------------FIM Rotas para o carrinho-------------------------
+
+
+
+
 
 # rota para esvaziar carrinho
 @app.route('/api/esvaziaCarrinho', methods=['POST'])

@@ -2,33 +2,9 @@
     {
         "Id_Refeicao": 1,
         "Nome": "Churrasco Misto",
-        "Preco": 55.00,
+        "Preco": 55.0,
         "Descricao": "Variedade de carnes nobres",
         "Url_foto": "https://img.freepik.com/fotos-premium/prato-tradicional-da-comida-brasileira-com-churrasco-feijao-arroz-e-salada_259266-1907.jpg",
         "Categoria": "Carnes"
-    },
-    {
-        "Id_Refeicao": 2,
-        "Nome": "Pizza Margherita",
-        "Preco": 35.00,
-        "Descricao": "Massa fina com mussarela e manjericão",
-        "Url_foto": "https://img.freepik.com/fotos-premium/prato-tradicional-da-comida-brasileira-com-churrasco-feijao-arroz-e-salada_259266-1907.jpg",
-        "Categoria": "Massas"
-    },
-    {
-        "Id_Refeicao": 2,
-        "Nome": "Pizza Margherita",
-        "Preco": 35.00,
-        "Descricao": "Massa fina com mussarela e manjericão",
-        "Url_foto": "https://img.freepik.com/fotos-premium/prato-tradicional-da-comida-brasileira-com-churrasco-feijao-arroz-e-salada_259266-1907.jpg",
-        "Categoria": "Massas"
-    },
-    {
-        "Id_Refeicao": 3,
-        "Nome": "Salmão Sashimi",
-        "Preco": 42.00,
-        "Descricao": "Salmão fresco e saboroso",
-        "Url_foto": "https://img.freepik.com/fotos-premium/prato-tradicional-da-comida-brasileira-com-churrasco-feijao-arroz-e-salada_259266-1907.jpg",
-        "Categoria": "Japonesa"        
     }
 ]

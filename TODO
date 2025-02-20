@@ -2,14 +2,13 @@
 ##GUSTAVO##
 (X) Criar tela de AlterarCadastraUsuario
 () Criar tela cadastrarCupom
-() Criar tela CadastroAlimento
 (X) Criar telas de refeições
 
 (X) Criar carrinho
     (X) opção remover remove do jason
     () opção cupom
     () script carrinho
-        () criar/remover itens no api/carrinho  
+        () remover itens no api/carrinho  
         () modificar a rota para a certa
 areaUsuario
     (X) modificar botao sair 
@@ -20,11 +19,24 @@ carrinho
     (x) concertar botoes
 Cardapio
     (X) puxar itens do jason
+    () concertar formtação html, ficar um do lado do outro
 Login
     (X) modificar pushButton Entrar
+Refeicao-adm
+    () cadastro Refeicao
+    () remove Refeicao
+    () altera Refeicao
+Refeicao-user
+    (x) concertar o filtar por categoria
+    () adicionar refeicao carrinho
+Refinamento final
+    ()concertar footer
+    ()concertar logo
+    ()concertar nome 
 
 (X) Criar visualizar pedidos na area do areaUsuario
-() Corrigir login // Returns an array of the key/value pairs of an object Object.entries(object)
+(X) Corrigir login // Returns an array of the key/value pairs of an object Object.entries(object)
+
 ##ARTHUR##
 () Criar cupom e trigger
 () Testar triggers
