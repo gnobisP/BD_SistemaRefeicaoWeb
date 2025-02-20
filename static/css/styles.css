@@ -11998,3 +11998,58 @@ section#contact form#contactForm :-ms-input-placeholder {
   background-color: #0056b3;
   transform: scale(1.05); /* Efeito de escala ao passar o mouse */
 }
+
+/* Estilização do footer */
+footer {
+  background-color: #222; /* Fundo escuro */
+  color: white;
+  padding: 20px 0;
+  font-family: Arial, sans-serif;
+}
+
+.footer-logo-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.footer-logo-box img {
+  width: 100px; /* Ajuste conforme necessário */
+  margin-bottom: 10px;
+}
+
+.footer-logo-box h5 {
+  font-size: 18px;
+  font-weight: bold;
+  color: #f8b400; /* Cor chamativa para destacar */
+}
+
+.footer-icons-social-media {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.footer-icons-social-media a {
+  text-decoration: none;
+  transition: transform 0.3s ease-in-out;
+}
+
+.footer-icons-social-media a:hover {
+  transform: scale(1.2);
+}
+
+.footer-icons-social-media i {
+  color: white;
+}
+
+/* Estilização do centro do footer */
+footer .col-md-6 {
+  text-align: center;
+}
+
+footer .col-md-6 p {
+  margin: 5px 0;
+  font-size: 14px;
+}
