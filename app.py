@@ -27,6 +27,9 @@ def index0():
 @app.route('/index')
 def index1():
     return render_template('index.html')
+@app.route('/CadastrarCupom')
+def CadastrarCupom():
+    return render_template('CadastrarCupom.html')
 
 @app.route('/loginUsu')
 def loginUsu():
@@ -234,7 +237,7 @@ def salvar_Cupom():
     
     
 
-    cupom_service.salvar_Cupom(cupom)
+    cupom_service.salvar_Cupom(Cupom)
     return jsonify({"message": "Cupom cadastrada com sucesso!"}), 201
 
 @app.route('/salvarNotaFiscal', methods=['POST'])
