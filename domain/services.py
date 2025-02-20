@@ -73,4 +73,4 @@ class CupomService:
 
     def obter_cupons(self):
         query = "select * from CUPOM"
-        self.db.fetch_all(query)
+        return self.db.fetch_all(query)

@@ -184,7 +184,7 @@ def obter_cupons():
     try:
         cupons = cupom_service.obter_cupons()
         if not cupons:
-            return jsonify({"message": "Nenhum cupom encontrada."}), 404
+            return jsonify({"message": "Nenhum cupom encontrado."}), 404
         return jsonify(cupons)
     except Exception as e:
         return jsonify({"error": str(e)}), 500

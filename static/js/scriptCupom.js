@@ -34,9 +34,23 @@ async function obter_cupons() {
         if(!response.ok){
             throw new Error("Erro ao carregar cupons: " + response.statusText);
         }
-
         cupons = await response.json();
-        
+
+        const codigo = document.getElementById("cupom");
+        let correto = false;
+        for(let cupom of cupons){
+            if(cupom.codigo === codigo.value){
+                correto = true;
+                break;
+            }
+        }
+
+        if(correto){
+            alert("Cupom válido.");
+        }
+        else{
+            alert("Cupom inválido. Tente usar outro cupom.");
+        }
     } catch (error){
         console.error('Erro ao carregar os cupons:', error);
     }

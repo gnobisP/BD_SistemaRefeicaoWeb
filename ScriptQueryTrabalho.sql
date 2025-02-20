@@ -69,8 +69,9 @@ create table AVALIA(
 
 create table CUPOM(
 	Codigo numeric(3) primary key,
-	Valor_Desconto numeric() not null
+	Valor_Desconto numeric(5, 2) not null
 );
+select * from CUPOM;
 
 -- RESTAURANTE
 INSERT INTO RESTAURANTE (Id_Restaurante, Nome, Localizacao, Inicio_Funcionamento, Termino_Funcionamento, Avaliacao) VALUES
@@ -79,7 +80,7 @@ INSERT INTO RESTAURANTE (Id_Restaurante, Nome, Localizacao, Inicio_Funcionamento
 (3, 'Sushi Express', 'Rua do Sol, 789', '12:00', '21:00', 9.6),
 (4, 'Cantina Mineira', 'Rua da Bahia, 1011', '11:00', '20:00', 8.0),
 (5, 'Burger Mania', 'Avenida Atlântica, 1213', '17:00', '23:00', 9.2);
-
+select * from REFEICAO;
 -- REFEICAO
 INSERT INTO REFEICAO (Id_Refeicao, Nome, Preco, Categoria, Descricao, Url_foto) VALUES
 (1, 'Churrasco Misto', 55.00, 'Carnes', 'Variedade de carnes nobres', 'url_churrasco.jpg'),
