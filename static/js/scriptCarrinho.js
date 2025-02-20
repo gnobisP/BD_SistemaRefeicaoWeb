@@ -25,6 +25,35 @@ async function adicionarItem(item) {
 }
 
 // Função para remover um item do carrinho
+async function removerItem(id_refeicao) {
+    try {
+        // Faz a requisição DELETE para o backend
+        const response = await fetch(`/api/itens/${id_refeicao}`, {
+            method: 'DELETE',
+        });
+
+        if (response.ok) {
+            // Encontra o índice da primeira ocorrência do item no carrinho
+            const index = carrinho.findIndex(item => item.id_refeicao === id_refeicao);
+
+            if (index !== -1) {
+                // Remove apenas uma ocorrência do item
+                carrinho.splice(index, 1);
+            }
+
+            // Re-renderiza o carrinho
+            renderizarCarrinho();
+
+            alert('Item removido com sucesso!');
+        } else {
+            throw new Error('Erro ao remover o item.');
+        }
+    } catch (error) {
+        console.error('Erro:', error);
+        alert('Erro ao remover o item.');
+    }
+}
+/*
 async function removerItem(id) {
     try {
         const response = await fetch(`/api/itens/${id}`, {
@@ -42,7 +71,7 @@ async function removerItem(id) {
         alert('Erro ao remover o item.');
     }
 }
-
+*/
 // Função para esvaziar o carrinho
 async function esvaziarCarrinho() {
     try {
@@ -71,7 +100,8 @@ function calcularTotal() {
 function atualizarContador() {
     document.getElementById('cart-count').textContent = carrinho.length;
 }
-
+//TODO excluir depos
+/*
 function renderizarCarrinho() {
     const cartItems = document.getElementById('cart-items');
     cartItems.innerHTML = '';
@@ -101,7 +131,81 @@ function renderizarCarrinho() {
     </div>`;
     cartItems.innerHTML += precoTotalHTML;
 }
+*/
 
+async function removerItem(id_refeicao) {
+
+    const response = await fetch(`/api/itens/${id_refeicao}`, {
+        method: 'DELETE',
+    });
+
+    if (response.ok) {
+        const index = carrinho.findIndex(item => item.id_refeicao === id_refeicao);
+
+        if (index !== -1) {
+            carrinho.splice(index, 1); // Remove apenas uma ocorrência
+        }
+
+        renderizarCarrinho();
+        alert('Item removido com sucesso!');
+    } else {
+        throw new Error('teste');
+    }
+
+}
+
+function renderizarCarrinho() {
+    const cartItems = document.getElementById('cart-items');
+    cartItems.innerHTML = '';
+    precoTotal = 0;
+
+    const itensAgrupados = {};
+
+    carrinho.forEach(item => {
+        if (itensAgrupados[item.id_refeicao]) {
+            itensAgrupados[item.id_refeicao].quantidade += 1;
+        } else {
+            itensAgrupados[item.id_refeicao] = {
+                ...item,
+                quantidade: 1,
+            };
+        }
+    });
+
+    for (const id_refeicao in itensAgrupados) {
+        const item = itensAgrupados[id_refeicao];
+
+        if (item.quantidade > 0) {
+            const precoItem = item.preco * item.quantidade;
+
+            const itemHTML = `
+                <div class="cart-item">
+                    <div class="row">
+                        <img src="${item.url_foto}" alt="${item.nome}">
+                        <div class="col-4">${item.nome}</div>
+                        <div class="col-2">R$ ${item.preco.toFixed(2)}</div>
+                        <div class="col-2">Quantidade: ${item.quantidade}</div>
+                        <div class="col-2">R$ ${precoItem.toFixed(2)}</div>
+                        <div class="col-2">
+                            <!-- <button class="btn btn-sm btn-danger" onclick="removerItem(${item.id_refeicao})">×</button>-->
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            cartItems.innerHTML += itemHTML;
+            precoTotal += precoItem;
+        }
+    }
+
+    const totalElement = document.getElementById('total-price');
+    if (totalElement) {
+        totalElement.textContent = `Total: R$ ${precoTotal.toFixed(2)}`;
+    }
+}
+
+// Renderiza o carrinho ao carregar a página
+renderizarCarrinho();
 // Função para abrir o modal do carrinho
 function abrirCarrinho() {
     renderizarCarrinho(); // Renderiza o carrinho antes de abrir o modal
@@ -119,7 +223,6 @@ async function finalizarCompra() {
 
     // Confirmação da compra
     if (confirm(`Confirmar compra no valor de R$ ${precoTotal} (${pagamento})?`)) {
-        try {
             // Cria um objeto com os dados da compra
             const dadosCompra = {
                 itens: carrinho,
@@ -141,14 +244,11 @@ async function finalizarCompra() {
             });
 
             if (response.ok) {
-                defesvaziar(); // Esvazia o carrinho após a compra
+                esvaziarCarrinho(); // Esvazia o carrinho após a compra
             } else {
                 throw new Error('Erro ao salvar o arquivo JSON.');
             }
-        } catch (error) {
-            console.error('Erro:', error);
-            alert('Erro ao finalizar a compra.');
-        }
+        
     }
     window.location.href = "/AreaUsuario"
 }

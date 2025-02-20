@@ -25,12 +25,12 @@ Cardapio
 Login
     (X) modificar pushButton Entrar
 Refeicao-adm
-    () cadastro Refeicao
+    (x) cadastro Refeicao
     () remove Refeicao
     () altera Refeicao
 Refeicao-user
     (x) concertar o filtar por categoria
-    () rota adicionar refeicao carrinho
+    (x) rota adicionar refeicao carrinho
 Refinamento final
     ()concertar footer
     ()concertar logo
@@ -38,7 +38,7 @@ Refinamento final
 
 (X) Criar visualizar pedidos na area do areaUsuario
 (X) Corrigir login // Returns an array of the key/value pairs of an object Object.entries(object)
-
+() achar link de imagem
 ##ARTHUR##
 () Criar cupom e trigger
 () Testar triggers

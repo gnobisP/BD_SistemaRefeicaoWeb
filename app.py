@@ -13,6 +13,7 @@ CORS(app)
 
 # Configuração do banco de dados // user/password
 DATABASE_URL = "postgresql://postgres:postgres@localhost/trabalhobd"
+
 db_adapter = DatabaseAdapter(DATABASE_URL)
 nota_service = NotaFiscalService(db_adapter)
 cliente_service = ClienteService(db_adapter)
@@ -24,6 +25,9 @@ cupom_service = CupomService(db_adapter)
 @app.route('/')
 def index0():
     return render_template('index.html')
+@app.route('/AreaFuncionario')
+def AreaFuncionario():
+    return render_template('AreaFuncionario.html')
 
 @app.route('/index')
 def index1():
