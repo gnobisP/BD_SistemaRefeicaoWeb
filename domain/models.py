@@ -30,12 +30,12 @@ class Cliente:
 
 @dataclass
 class Refeicao:
-    Id_Refeicao: int
-    Nome: str
-    Preco: float
-    Categoria: str
-    Descricao: str
-    Url_foto: str
+    id_refeicao: int
+    nome: str
+    preco: float
+    categoria: str
+    descricao: str
+    url_foto: str
 
 @dataclass
 class Cupom:
