@@ -23,6 +23,9 @@ create table REFEICAO(
 	Descricao varchar(50) not null,
 	Url_foto varchar(100) not null
 );
+alter table REFEICAO alter column Url_foto type varchar(1000);
+update REFEICAO set Url_foto = 'https://img.freepik.com/fotos-premium/prato-tradicional-da-comida-brasileira-com-churrasco-feijao-arroz-e-salada_259266-1907.jpg'
+where Id_Refeicao = 1;
 
 create table Usuario(
 	Cpf varchar(11) primary key,
@@ -93,14 +96,7 @@ INSERT INTO USUARIO (Cpf, Nome, Endereco, Telefone, Email, Senha, Cliente_Funcio
 ('44455566677', 'Pedro Oliveira', 'Rua D, 40', '66666666666', 'pedro@email.com', 'senha101', 'C'),
 ('88899900011', 'Carla Santos', 'Rua E, 50', '55555555555', 'carla@email.com', 'senha112', 'C'),
 ('55577711100', 'Arthur Rodrigues', 'Rua F, 90', '33333333333', 'arthur@email.com', 'senha202', 'F');
-
--- ENTREGADOR
-INSERT INTO ENTREGADOR (Cpf_Entregador, Nome, Tipo_Veiculo, Placa_Veiculo) VALUES
-('55566677788', 'Carlos Oliveira', 'Moto', 'ABC1234'),
-('99988877766', 'Fernanda Santos', 'Carro', 'XYZ5678'),
-('12378945600', 'Rodrigo Almeida', 'Moto', 'DEF9012'),
-('45612378900', 'Juliana Silva', 'Moto', 'GHI3456'),
-('78945612300', 'Bruno Pereira', 'Carro', 'JKL7890');
+select * from REFEICAO;
 
 -- PEDIDO
 INSERT INTO PEDIDO (Id_Pedido, Valor_Pago, Forma_Pagamento, Id_Restaurante, Cpf_Cliente, Data_Entrega) VALUES
