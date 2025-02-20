@@ -1,4 +1,4 @@
-from domain.models import NotaFiscal, Cliente, Refeicao, Cupom, Restaurante, Avaliacao
+from domain.models import NotaFiscal, Cliente, Refeicao, Cupom, Restaurante, Avaliacao, Pedido
 
 class NotaFiscalService:
     def __init__(self, db_adapter):
@@ -107,3 +107,10 @@ class AvaliacaoService:
     def obter_avaliacoes(self):
         query = "select * from AVALIA"
         return self.db.fetch_all(query)
+class PedidoService:
+    def __init__(self, db_adapter):
+        self.db = db_adapter
+
+    def salvar_pedido(self, pedido: Pedido):
+        query = "INSERT INTO PEDIDO (Id_Pedido, Valor_Pago, Forma_Pagamento, Id_Restaurante, Cpf_Cliente, Data_Entrega) VALUES (%s, %s, %s, %s, %s, %s)"
+        self.db.execute(query, (pedido.id_pedido, pedido.valor_pago, pedido.forma_pagamento, pedido.id_restaurante, pedido.cpf_cliente,  pedido.data_pedido))

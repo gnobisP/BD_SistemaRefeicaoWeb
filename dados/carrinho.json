@@ -1,1 +1,10 @@
-[]
+[
+    {
+        "categoria": "Massa",
+        "descricao": "Massa fina com mussarela e manjeric\u00e3o",
+        "id_refeicao": "2",
+        "nome": "Pizza Margherita",
+        "preco": "35.00",
+        "url_foto": "url_pizza.jpg"
+    }
+]

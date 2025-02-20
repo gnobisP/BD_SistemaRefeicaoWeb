@@ -1,9 +1,9 @@
 from flask import Flask, jsonify, request, render_template, abort
 from adapters.database_adapter import DatabaseAdapter
-from domain.services import NotaFiscalService, ClienteService, RefeicaoService, LoginService, CupomService
+from domain.services import NotaFiscalService, ClienteService, PedidoService, RefeicaoService, LoginService, CupomService
 from domain.models import NotaFiscal, NotaFiscalItens, Produto, Cliente, Refeicao, Cupom, Usuario
 from domain.services import NotaFiscalService, ClienteService, RefeicaoService, LoginService, CupomService, RestauranteService, AvaliacaoService
-from domain.models import NotaFiscal, NotaFiscalItens, Produto, Cliente, Refeicao, Cupom, Restaurante, Avaliacao
+from domain.models import NotaFiscal, NotaFiscalItens, Produto, Cliente, Refeicao, Cupom, Restaurante, Avaliacao, Pedido
 from flask_cors import CORS
 import os
 import json
@@ -25,7 +25,7 @@ cupom_service = CupomService(db_adapter)
 usuarios_salvos = []
 restaurante_service = RestauranteService(db_adapter)
 avaliacao_service = AvaliacaoService(db_adapter)
-
+pedido_service = PedidoService(db_adapter)
 #------------------------Rotas para o front-end .html--------------------
 @app.route('/')
 def index0():
@@ -102,7 +102,9 @@ def check_login():
         return jsonify(usuario)
     except Exception as e:
         return jsonify({"error": str(e)}, 500)
+    
 usuario_logado = None
+
 @app.route('/salvaUsuarioAtual', methods=['GET', 'POST'])  # Aceita GET e POST
 def salva_usuario_atual():
     global usuario_logado  # Acessa a variável global
@@ -118,6 +120,11 @@ def salva_usuario_atual():
         senha = data.get('senha')
         cliente_funcionario = data.get('cliente_funcionario')
 
+        print(cpf)
+        print(cpf)
+        print(cpf)
+        print(cpf)
+
         # Salva os dados do usuário logado na variável global
         usuario_logado = {
             "cpf": cpf,
@@ -128,6 +135,7 @@ def salva_usuario_atual():
             "senha": senha,
             "cliente_funcionario": cliente_funcionario
         }
+        print(usuario_logado)
 
         return jsonify({"message": "Usuário salvo com sucesso", "usuario": usuario_logado}), 201
 
@@ -332,23 +340,20 @@ def salvar_avaliacao():
 
 
 #função do edson, modificar para o nosso
-@app.route('/dados/salvarCompra', methods=['POST'])
+@app.route('/salvarCompra', methods=['POST'])
 def salvar_compra():
-    try:
-        data = request.json
-        if not data:
-            return jsonify({"error": "No data provided"}), 400
+    
+    
+    print(usuario_logado['cpf'])
+    
+    data = request.json
+    
+    pedido = Pedido(95,data['total'], data['pagamento'], 
+                    3, usuario_logado['cpf'],"2024-07-20")
 
-        # Define the path to save the JSON file
-        save_path = os.path.join(os.getcwd(), 'dados', 'compra.json')
-
-        # Save the JSON data to the file
-        with open(save_path, 'w') as json_file:
-            json.dump(data, json_file, indent=2)
-
-        return jsonify({"message": "Compra salva com sucesso!"}), 201
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
-
+    pedido_service.salvar_pedido(pedido)
+    
+    return jsonify({"message": "Pedido salvo com sucesso!"}), 201
+    
 if __name__ == '__main__':
     app.run(debug=True)

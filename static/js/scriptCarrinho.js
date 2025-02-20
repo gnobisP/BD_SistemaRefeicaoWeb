@@ -100,39 +100,6 @@ function calcularTotal() {
 function atualizarContador() {
     document.getElementById('cart-count').textContent = carrinho.length;
 }
-//TODO excluir depos
-/*
-function renderizarCarrinho() {
-    const cartItems = document.getElementById('cart-items');
-    cartItems.innerHTML = '';
-    precoTotal = 0; // Reset precoTotal before recalculating
-
-    carrinho.forEach(item => {
-        const itemHTML = `
-            <div class="cart-item">
-                <div class="row">
-                    <img src="${item.url_foto}" alt="${item.nome}">
-                    <div class="col-6">${item.nome}</div>
-                    <div class="col-2">R$ ${item.preco}</div>
-                    <div class="col-2">
-                        <button class="btn btn-sm btn-danger" onclick="removerItem(${item.id_refeicao})">×</button>
-                    </div>
-                </div>
-
-            </div>
-        `;
-        cartItems.innerHTML += itemHTML;
-        precoTotal += item.preco; // Convert to number before adding
-    });
-
-    const precoTotalHTML = `
-    <div>
-        <p>Preço total: R$ ${precoTotal}</p>
-    </div>`;
-    cartItems.innerHTML += precoTotalHTML;
-}
-*/
-
 async function removerItem(id_refeicao) {
 
     const response = await fetch(`/api/itens/${id_refeicao}`, {
@@ -227,27 +194,26 @@ async function finalizarCompra() {
             const dadosCompra = {
                 itens: carrinho,
                 total: precoTotal,
-                pagamento: pagamento,
-                data: new Date().toLocaleString() // Adiciona a data da compra
+                pagamento: pagamento
             };
 
             // Converte o objeto para JSON
             const json = JSON.stringify(dadosCompra, null, 2);
-
+            console.log('JSON:', json);
             // Envia o JSON para o servidor para salvar na pasta /dados
-            const response = await fetch('/dados/salvarCompra', {
+            const response = await fetch('/salvarCompra', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: json
             });
-
+/*
             if (response.ok) {
                 esvaziarCarrinho(); // Esvazia o carrinho após a compra
             } else {
                 throw new Error('Erro ao salvar o arquivo JSON.');
-            }
+            }*/
         
     }
     window.location.href = "/AreaUsuario"
