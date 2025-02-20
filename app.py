@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, request, render_template, abort
 from adapters.database_adapter import DatabaseAdapter
-from domain.services import NotaFiscalService, ClienteService, RefeicaoService, LoginService, cupom_service
+from domain.services import NotaFiscalService, ClienteService, RefeicaoService, LoginService, CupomService
 from domain.models import NotaFiscal, NotaFiscalItens, Produto, Cliente, Refeicao, Cupom
 from flask_cors import CORS
 import os
@@ -18,6 +18,7 @@ nota_service = NotaFiscalService(db_adapter)
 cliente_service = ClienteService(db_adapter)
 refeicao_service = RefeicaoService(db_adapter)
 login_service = LoginService(db_adapter)
+cupom_service = CupomService(db_adapter)
 
 #------------------------Rotas para o front-end .html--------------------
 @app.route('/')
@@ -194,6 +195,16 @@ def obter_refeicoes():
         return jsonify(refeicoes)
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+    
+@app.route("/obterCupons", methods=['GET'])
+def obter_cupons():
+    try:
+        cupons = cupom_service.obter_cupons()
+        if not cupons:
+            return jsonify({"message": "Nenhum cupom encontrada."}), 404
+        return jsonify(cupons)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 @app.route('/salvarUsuario', methods=['POST'])
 def salvar_usuario():
@@ -230,14 +241,14 @@ def salvar_Refeicao():
 @app.route('/salvarCupom', methods=['POST'])
 def salvar_Cupom():
     data = request.json
-    Cupom = Cupom(data['codigo'], data['desconto'])
+    cupom = Cupom(data['codigo'], data['desconto'])
 
-    print(Cupom.Codigo)
-    print(Cupom.Desconto)
+    print(cupom.Codigo)
+    print(cupom.Desconto)
     
     
 
-    cupom_service.salvar_Cupom(Cupom)
+    cupom_service.salvar_Cupom(cupom)
     return jsonify({"message": "Cupom cadastrada com sucesso!"}), 201
 
 @app.route('/salvarNotaFiscal', methods=['POST'])

@@ -7,7 +7,7 @@ async function Cadastrar_cupom(){
     console.log(desconto);
 
 
-    await fetch('/salvarRefeicao',{
+    await fetch('/salvarCupom',{
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -26,4 +26,18 @@ async function Cadastrar_cupom(){
     });
 
     window.location.href = "/AreaUsuario";
+}
+
+async function obter_cupons() {
+    try{
+        const response = await fetch('/obterCupons');
+        if(!response.ok){
+            throw new Error("Erro ao carregar cupons: " + response.statusText);
+        }
+
+        cupons = await response.json();
+        
+    } catch (error){
+        console.error('Erro ao carregar os cupons:', error);
+    }
 }
