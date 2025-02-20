@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request, render_template, abort
 from adapters.database_adapter import DatabaseAdapter
 from domain.services import NotaFiscalService, ClienteService, RefeicaoService, LoginService, CupomService
-from domain.models import NotaFiscal, NotaFiscalItens, Produto, Cliente, Refeicao, Cupom
+from domain.models import NotaFiscal, NotaFiscalItens, Produto, Cliente, Refeicao, Cupom, Usuario
 from flask_cors import CORS
 import os
 import json
@@ -20,7 +20,7 @@ cliente_service = ClienteService(db_adapter)
 refeicao_service = RefeicaoService(db_adapter)
 login_service = LoginService(db_adapter)
 cupom_service = CupomService(db_adapter)
-
+usuarios_salvos = []
 #------------------------Rotas para o front-end .html--------------------
 @app.route('/')
 def index0():
@@ -93,9 +93,41 @@ def check_login():
         return jsonify(usuario)
     except Exception as e:
         return jsonify({"error": str(e)}, 500)
+usuario_logado = None
+@app.route('/salvaUsuarioAtual', methods=['GET', 'POST'])  # Aceita GET e POST
+def salva_usuario_atual():
+    global usuario_logado  # Acessa a variável global
 
+    if request.method == 'POST':
+        # Lógica para salvar o usuário (POST)
+        data = request.json  # Recebe os dados do usuário no formato JSON
+        cpf = data.get('cpf')
+        nome = data.get('nome')
+        endereco = data.get('endereco')
+        telefone = data.get('telefone')
+        email = data.get('email')
+        senha = data.get('senha')
+        cliente_funcionario = data.get('cliente_funcionario')
 
+        # Salva os dados do usuário logado na variável global
+        usuario_logado = {
+            "cpf": cpf,
+            "nome": nome,
+            "endereco": endereco,
+            "telefone": telefone,
+            "email": email,
+            "senha": senha,
+            "cliente_funcionario": cliente_funcionario
+        }
 
+        return jsonify({"message": "Usuário salvo com sucesso", "usuario": usuario_logado}), 201
+
+    elif request.method == 'GET':
+        # Lógica para retornar o usuário salvo (GET)
+        if usuario_logado:
+            return jsonify({"usuario": usuario_logado}), 200
+        else:
+            return jsonify({"message": "Nenhum usuário logado"}), 404
 #------------------------Rotas para o carrinho-------------------------
 '''
 ANTIGO
@@ -188,7 +220,7 @@ def obter_cupons():
     try:
         cupons = cupom_service.obter_cupons()
         if not cupons:
-            return jsonify({"message": "Nenhum cupom encontrado."}), 404
+            return jsonify({"message": "Nenhum cupom encontrado"}), 404
         return jsonify(cupons)
     except Exception as e:
         return jsonify({"error": str(e)}), 500

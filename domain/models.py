@@ -41,3 +41,14 @@ class Refeicao:
 class Cupom:
     Codigo: int
     Desconto: float
+
+@dataclass
+class Usuario:
+    cliente_funcionario: str
+    cpf: str
+    email: str
+    endereco: str
+    nome: str
+    senha: str
+    telefone: str
+    

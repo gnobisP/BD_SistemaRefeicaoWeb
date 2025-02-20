@@ -1,17 +1,21 @@
 
 ##GUSTAVO##
 (X) Criar tela de AlterarCadastraUsuario
-() Criar tela cadastrarCupom
+(X) Criar tela cadastrarCupom
 (X) Criar telas de refeições
 
 (X) Criar carrinho
     (X) opção remover remove do jason
-    () opção cupom
+    (X) opção cupom
     () script carrinho
         (x) remover itens no api/carrinho
         (x) esvaziar carrinho  
         (x) modificar a rota para a certa
-        () criar rota para enviar o carrinho para tabela pedidos (os itens do carrinho estão no json local)
+        (X) criar rota para enviar o carrinho para tabela pedidos (os itens do carrinho estão no json local)
+        (X) fazer rota enviar pedido
+avaliacao
+        ()telas e rotas
+        
 areaUsuario
     (X) modificar botao sair 
     (X) modificar botao alterar dados

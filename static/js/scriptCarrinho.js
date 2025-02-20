@@ -185,7 +185,7 @@ function renderizarCarrinho() {
                         <div class="col-4">${item.nome}</div>
                         <div class="col-2">R$ ${item.preco.toFixed(2)}</div>
                         <div class="col-2">Quantidade: ${item.quantidade}</div>
-                        <div class="col-2">R$ ${precoItem.toFixed(2)}</div>
+                        <div class="col-2">Total R$ ${precoItem.toFixed(2)}</div>
                         <div class="col-2">
                             <!-- <button class="btn btn-sm btn-danger" onclick="removerItem(${item.id_refeicao})">×</button>-->
                         </div>

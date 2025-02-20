@@ -60,9 +60,13 @@ class LoginService:
         self.db = db_adapter
     
     def check_login(self):
-        query = "select Email, Senha from USUARIO"
+        query = "select * from USUARIO"
         return self.db.fetch_all(query)
-
+    
+    def get_user(self):
+        query = "select * from USUARIO"
+        return self.db.fetch_all(query)
+    
 class CupomService:
     def __init__(self, db_adapter):
         self.db = db_adapter
@@ -74,3 +78,9 @@ class CupomService:
     def obter_cupons(self):
         query = "select * from CUPOM"
         return self.db.fetch_all(query)
+
+class CarrinhoService:    
+    def salvar_Carrinho(self, refeicao: Refeicao):
+        query = "insert into REFEICAO (Id_Refeicao, Nome, Preco, Categoria, Descricao, Url_foto) values (%s, %s, %s, %s, %s, %s)"
+        self.db.execute(query, (refeicao.id_refeicao, refeicao.nome, refeicao.preco, refeicao.categoria, refeicao.descricao, refeicao.url_foto))
+    
