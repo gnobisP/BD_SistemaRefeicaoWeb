@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request, render_template, abort
 from adapters.database_adapter import DatabaseAdapter
-from domain.services import NotaFiscalService, ClienteService, RefeicaoService, LoginService
-from domain.models import NotaFiscal, NotaFiscalItens, Produto, Cliente, Refeicao
+from domain.services import NotaFiscalService, ClienteService, RefeicaoService, LoginService, cupom_service
+from domain.models import NotaFiscal, NotaFiscalItens, Produto, Cliente, Refeicao, Cupom
 from flask_cors import CORS
 import os
 import json

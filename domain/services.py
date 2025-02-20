@@ -1,4 +1,4 @@
-from domain.models import NotaFiscal, Cliente, Refeicao
+from domain.models import NotaFiscal, Cliente, Refeicao, Cupom
 
 class NotaFiscalService:
     def __init__(self, db_adapter):
