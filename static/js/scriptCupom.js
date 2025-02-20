@@ -25,7 +25,7 @@ async function Cadastrar_cupom(){
         console.error("Erro ao cadastrar Cupom: ", error);
     });
 
-    window.location.href = "/AreaUsuario";
+    window.location.href = "/CadastroCupom";
 }
 
 async function obter_cupons() {
