@@ -59,6 +59,10 @@ def cadastroUsu():
 def cardapio():
     return render_template('refeicoes.html')
 
+@app.route('/CadastroRef')
+def cadastroRefeicao():
+    return render_template('CadastroRef.html')
+
 #---------------Fim das rotas para o front-end .html-------------------------
 
 

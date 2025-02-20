@@ -18,6 +18,9 @@ document.write(`
             <li class="nav-item">
               <a class="nav-link" href="#" onclick="irParaCarrinho()">Carrinho</a>
             </li>
+            <li class = "nav-item">
+              <a class = "nav-link" href = "#" onclick = "irParaCadastroRefeicao()">Cadastro Refeição</a>
+            </li>
           </ul>
         </div>
       </div>

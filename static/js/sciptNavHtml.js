@@ -28,6 +28,9 @@ function irParaCardapio() {
 function irParaindex() {
     window.location.href = "/index"; // Certifique-se de que essa rota existe no Flask
 }
+function irParaCadastroRefeicao() {
+    window.location.href = "/CadastroRef"; // Certifique-se de que essa rota existe no Flask
+}
 
 
 
