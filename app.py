@@ -23,6 +23,9 @@ login_service = LoginService(db_adapter)
 @app.route('/')
 def index0():
     return render_template('index.html')
+@app.route('/AreaFuncionario')
+def AreaFuncionario():
+    return render_template('AreaFuncionario.html')
 
 @app.route('/index')
 def index1():
