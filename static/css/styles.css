@@ -12001,10 +12001,11 @@ section#contact form#contactForm :-ms-input-placeholder {
 
 /* Estilização do footer */
 footer {
-  background-color: #222; /* Fundo escuro */
+  background-color: #222;
   color: white;
-  padding: 20px 0;
-  font-family: Arial, sans-serif;
+  padding: 20px;
+  text-align: center;
+  margin-top: 20%; /* Isso empurra o footer para o final */
 }
 
 .footer-logo-box {
