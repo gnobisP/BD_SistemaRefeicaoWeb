@@ -91,9 +91,9 @@ class AvaliacaoService:
     def __init__(self, db_adapter):
         self.db = db_adapter
 
-    def salvar_Avaliacao(self, avaliacao: Avaliacao):
+    def salvar_avaliacao(self, avaliacao: Avaliacao):
         query = "insert into AVALIA (Cpf_Cliente, Id_Restaurante, Nota, Descricao) values (%s, %s, %s, %s)"
-        self.db.execute(query, (avaliacao.Cpf_Cliente, avaliacao.Id_Restaurante, avaliacao.Nota, avaliacao.Descricao))
+        self.db.execute(query, (avaliacao.cpf_cliente, avaliacao.id_restaurante, avaliacao.nota, avaliacao.descricao))
 
     def obter_avaliacoes(self):
         query = "select * from AVALIA"

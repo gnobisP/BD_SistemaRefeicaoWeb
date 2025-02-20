@@ -20,6 +20,8 @@ cliente_service = ClienteService(db_adapter)
 refeicao_service = RefeicaoService(db_adapter)
 login_service = LoginService(db_adapter)
 cupom_service = CupomService(db_adapter)
+restaurante_service = RestauranteService(db_adapter)
+avaliacao_service = AvaliacaoService(db_adapter)
 
 #------------------------Rotas para o front-end .html--------------------
 @app.route('/')
@@ -30,7 +32,7 @@ def AreaFuncionario():
     return render_template('AreaFuncionario.html')
 
 @app.route('/Avaliacao')
-def Avaliacao():
+def avaliacao():
     return render_template('CadastrarAvaliacao.html')
 
 @app.route('/index')
@@ -286,10 +288,10 @@ def salvar_avaliacao():
 
     data = request.json
     avaliacao = Avaliacao(data['Cpf_Cliente'], data['Id_Restaurante'], data['Nota'], data['Descricao'])
-    print(avaliacao.Cpf_Cliente)
-    print(avaliacao.Id_restaurante)
-    print(avaliacao.Nota)
-    print(avaliacao.Descricao)
+    print(avaliacao.cpf_cliente)
+    print(avaliacao.id_restaurante)
+    print(avaliacao.nota)
+    print(avaliacao.descricao)
     avaliacao_service.salvar_avaliacao(avaliacao)
     return jsonify({"message": "Avaliação salva com sucesso!"}), 201
 
