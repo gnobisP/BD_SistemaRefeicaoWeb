@@ -13,6 +13,7 @@ CORS(app)
 
 # Configuração do banco de dados // user/password
 DATABASE_URL = "postgresql://postgres:postgres@localhost/trabalhobd"
+
 db_adapter = DatabaseAdapter(DATABASE_URL)
 nota_service = NotaFiscalService(db_adapter)
 cliente_service = ClienteService(db_adapter)
