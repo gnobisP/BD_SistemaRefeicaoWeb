@@ -63,7 +63,7 @@ class Restaurante:
 
 @dataclass
 class Avaliacao:
-    Cpf_Cliente: str
-    Id_restaurante: int
-    Nota: int
-    Descricao: str
+    cpf_cliente: str
+    id_restaurante: int
+    nota: int
+    descricao: str
