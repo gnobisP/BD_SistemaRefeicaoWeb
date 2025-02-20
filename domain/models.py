@@ -51,3 +51,10 @@ class Restaurante:
     inicio_funcionamento: time
     termino_funcionamento: time
     avaliacao: float
+
+@dataclass
+class Avaliacao:
+    Cpf_Cliente: str
+    Id_restaurante: int
+    Nota: int
+    Descricao: str
