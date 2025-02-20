@@ -1,22 +1,65 @@
 let carrinho = [];
 let precoTotal = 0
 
-// Função para remover um item do carrinho
-function removerItem(id) {
-    // Filtra o carrinho para remover o item com o Id_Pedido correspondente
-    carrinho = carrinho.filter(pedido => pedido.Id_Pedido !== id);
-
-    // Atualiza a interface
-    atualizarContador();
-    renderizarCarrinho();
+// Função para adicionar um item ao carrinho
+async function adicionarItem(item) {
+    try {
+        const response = await fetch('/api/itens', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(item)
+        });
+        if (response.ok) {
+            carrinho.push(item); // Adiciona o item localmente
+            renderizarCarrinho(); // Renderiza o carrinho
+            alert('Item adicionado com sucesso!');
+        } else {
+            throw new Error('Erro ao adicionar o item.');
+        }
+    } catch (error) {
+        console.error('Erro:', error);
+        alert('Erro ao adicionar o item.');
+    }
 }
 
+// Função para remover um item do carrinho
+async function removerItem(id) {
+    try {
+        const response = await fetch(`/api/itens/${id}`, {
+            method: 'DELETE'
+        });
+        if (response.ok) {
+            carrinho = carrinho.filter(pedido => pedido.Id_Pedido !== id); // Remove o item localmente
+            renderizarCarrinho(); // Renderiza o carrinho
+            alert('Item removido com sucesso!');
+        } else {
+            throw new Error('Erro ao remover o item.');
+        }
+    } catch (error) {
+        console.error('Erro:', error);
+        alert('Erro ao remover o item.');
+    }
+}
 
 // Função para esvaziar o carrinho
-function esvaziarCarrinho() {
-    carrinho = []; // Limpa o carrinho
-    localStorage.setItem('../../dados/carrinho.json', JSON.stringify(carrinho));
-    renderizarCarrinho(); // Renderiza o carrinho
+async function esvaziarCarrinho() {
+    try {
+        const response = await fetch('/api/esvaziaCarrinho', {
+            method: 'POST'
+        });
+        if (response.ok) {
+            carrinho = []; // Limpa o carrinho localmente
+            renderizarCarrinho(); // Renderiza o carrinho
+            alert('Carrinho esvaziado com sucesso!');
+        } else {
+            throw new Error('Erro ao esvaziar o carrinho.');
+        }
+    } catch (error) {
+        console.error('Erro:', error);
+        alert('Erro ao esvaziar o carrinho.');
+    }
 }
 
 // Função para calcular o total do carrinho
@@ -98,7 +141,7 @@ async function finalizarCompra() {
             });
 
             if (response.ok) {
-                esvaziarCarrinho(); // Esvazia o carrinho após a compra
+                defesvaziar(); // Esvazia o carrinho após a compra
             } else {
                 throw new Error('Erro ao salvar o arquivo JSON.');
             }

@@ -9,13 +9,15 @@
     (X) opção remover remove do jason
     () opção cupom
     () script carrinho
+        () criar/remover itens no api/carrinho  
+        () modificar a rota para a certa
 areaUsuario
     (X) modificar botao sair 
     (X) modificar botao alterar dados
     (X) cadastrar navBar
 carrinho
-    () concertar navBar
-    () concertar botoes
+    (x) concertar navBar
+    (x) concertar botoes
 Cardapio
     (X) puxar itens do jason
 Login

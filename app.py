@@ -84,12 +84,53 @@ def check_login():
     except Exception as e:
         return jsonify({"error": str(e)}, 500)
 
-#rota para adicionar itens no carrinho.html
-@app.route('/api/itens')
-def getiItens():
-    with open('dados/carrinho.json', 'r', encoding='utf-8') as f:
-        pedidos = json.load(f)
-    return jsonify(pedidos)
+# rota para obter itens do carrinho
+@app.route('/api/itens', methods=['GET'])
+def get_itens():
+    try:
+        with open('dados/carrinho.json', 'r', encoding='utf-8') as f:
+            pedidos = json.load(f)
+        return jsonify(pedidos)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+# rota para adicionar itens ao carrinho
+@app.route('/api/itens', methods=['POST'])
+def add_item():
+    try:
+        data = request.json
+        with open('dados/carrinho.json', 'r+', encoding='utf-8') as f:
+            pedidos = json.load(f)
+            pedidos.append(data)
+            f.seek(0)
+            json.dump(pedidos, f, indent=2)
+        return jsonify({"message": "Item adicionado com sucesso!"}), 201
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+# rota para remover itens do carrinho
+@app.route('/api/itens/<int:item_id>', methods=['DELETE'])
+def remove_item(item_id):
+    try:
+        with open('dados/carrinho.json', 'r+', encoding='utf-8') as f:
+            pedidos = json.load(f)
+            pedidos = [pedido for pedido in pedidos if pedido['Id_Pedido'] != item_id]
+            f.seek(0)
+            f.truncate()
+            json.dump(pedidos, f, indent=2)
+        return jsonify({"message": "Item removido com sucesso!"}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+# rota para esvaziar carrinho
+@app.route('/api/esvaziaCarrinho', methods=['POST'])
+def esvaziar():
+    try:
+        with open('dados/carrinho.json', 'w', encoding='utf-8') as f:
+            json.dump([], f)  # Write an empty list to clear the cart
+        return jsonify({"message": "Carrinho esvaziado com sucesso!"}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 @app.route('/obterProdutos', methods=['GET'])
 def obter_produtos():
@@ -187,6 +228,8 @@ def obter_vendas():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+
+#função do edson, modificar para o nosso
 @app.route('/dados/salvarCompra', methods=['POST'])
 def salvar_compra():
     try:
