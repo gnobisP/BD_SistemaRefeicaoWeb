@@ -107,6 +107,7 @@ class AvaliacaoService:
     def obter_avaliacoes(self):
         query = "select * from AVALIA"
         return self.db.fetch_all(query)
+
 class PedidoService:
     def __init__(self, db_adapter):
         self.db = db_adapter
@@ -115,8 +116,10 @@ class PedidoService:
         query = "INSERT INTO PEDIDO (Valor_Pago, Forma_Pagamento, Id_Restaurante, Cpf_Cliente, Data_Pedido, Codigo_Cupom) VALUES (%s, %s, %s, %s, current_date, %s)"
         self.db.execute(query, (pedido.valor_pago, pedido.forma_pagamento, pedido.id_restaurante, pedido.cpf_cliente,4))
 
+    def obter_pedidos_cliente(self, cpf: str):
+        query = "SELECT P.Id_Pedido, P.Valor_Pago, P.Forma_Pagamento, R.Nome, P.Data_Pedido from PEDIDO P join RESTAURANTE R on P.Id_Restaurante = R.Id_Restaurante where P.Cpf_Cliente = {cpf}"
+        return self.db.fetch_all(query)
+    
     def salva_faz_parte(self, fazparte: FazParte):
         query = "INSERT INTO FAZ_PARTE (Id_Pedido, Id_Refeicao) VALUES (%s, %s)"
         self.db.execute(query, (fazparte.id_pedido, fazparte.id_refeicao))
-
-

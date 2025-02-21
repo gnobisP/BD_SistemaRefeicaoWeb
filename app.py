@@ -154,15 +154,6 @@ def load_items():
             return json.load(file)
     return []
 '''
-usuario_logado = {
-            "cpf": "12345678901",
-            "nome": "Fulano",
-            "endereco": "Rua dos Bobos, 0",
-            "telefone": "123456789",
-            "email": "fulano@det",
-            "senha": "123456",
-            "cliente_funcionario": "cliente"
-        }
 def load_items():
     if os.path.exists('dados/carrinho.json'):
         with open('dados/carrinho.json', 'r') as file:
@@ -333,6 +324,16 @@ def obter_vendas():
         if not vendas:
             return jsonify({"message": "Nenhuma venda encontrada."}), 404
         return jsonify(vendas)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/obterPedidosCliente', methods=['GET'])
+def obter_pedidos_cliente():
+    try:
+        pedidosCliente = pedido_service.obter_pedidos_cliente(usuario_logado['cpf'])
+        if not pedidosCliente:
+            return jsonify({"message": "Nenhuma venda encontrada."}), 404
+        return jsonify(pedidosCliente)
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
