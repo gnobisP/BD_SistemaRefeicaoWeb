@@ -15,50 +15,41 @@ document.getElementById("endereco").innerText = userData.endereco;
 document.getElementById("cpf").innerText = userData.cpf;
 
 // JSON de pedidos
-const pedidos = [
-    {
-        "Id_Pedido": 1,
-        "Valor_Pago": 75.00,
-        "Forma_Pagamento": "Cartão",
-        "Id_Restaurante": 1,
-        "Cpf_Cliente": "12345678901",
-        "Cpf_Entregador": "55566677788",
-        "Data_Entrega": "2024-07-20",
-        "Frete": 10.00
-    },
-    {
-        "Id_Pedido": 2,
-        "Valor_Pago": 40.00,
-        "Forma_Pagamento": "Dinheiro",
-        "Id_Restaurante": 2,
-        "Cpf_Cliente": "98765432109",
-        "Cpf_Entregador": "99988877766",
-        "Data_Entrega": "2024-07-20",
-        "Frete": 5.00
+async function obtemPedidosCliente(){
+    // Filtrando os pedidos do usuário
+try{
+    const response = await fetch('/obterPedidosCliente');
+    if(!response.ok){
+        throw new Error("Erro ao carregar pedidos: " + response.statusText);
     }
-];
+    const pedidosDoUsuario = await response.json();
 
-// Filtrando os pedidos do usuário
-const pedidosDoUsuario = pedidos.filter(pedido => pedido.Cpf_Cliente === userData.cpf);
+    // Exibindo os pedidos no HTML
+    const pedidosContainer = document.getElementById("pedidos-container");
 
-// Exibindo os pedidos no HTML
-const pedidosContainer = document.getElementById("pedidos-container");
+    pedidosDoUsuario.forEach(pedido => {
+        const pedidoElement = document.createElement("div");
+        pedidoElement.classList.add("pedido");
+        alert(pedido.Id_Pedido);
+        alert(pedido.Valor_Pago);
+        alert(pedido.Forma_Pagamento);
 
-pedidosDoUsuario.forEach(pedido => {
-    const pedidoElement = document.createElement("div");
-    pedidoElement.classList.add("pedido");
+        pedidoElement.innerHTML = `
+            <p><strong>ID do Pedido:</strong> ${pedido.Id_Pedido}</p>
+            <p><strong>Valor Pago:</strong> R$ ${pedido.Valor_Pago.toFixed(2)}</p>
+            <p><strong>Forma de Pagamento:</strong> ${pedido.Forma_Pagamento}</p>
+            <p><strong>Nome do restaurante:</strong> ${pedido.Nome}</p>
+            <p><strong>Data em que foi feito:</strong> ${pedido.Data_Pedido}</p>
+            <hr>
+        `;
+        pedidosContainer.appendChild(pedidoElement);
+    });
+} catch (error){
+    console.error('Erro ao carregar os pedidos', error);
+}
+}
 
-    pedidoElement.innerHTML = `
-        <p><strong>ID do Pedido:</strong> ${pedido.Id_Pedido}</p>
-        <p><strong>Valor Pago:</strong> R$ ${pedido.Valor_Pago.toFixed(2)}</p>
-        <p><strong>Forma de Pagamento:</strong> ${pedido.Forma_Pagamento}</p>
-        <p><strong>Data de Entrega:</strong> ${pedido.Data_Entrega}</p>
-        <p><strong>Frete:</strong> R$ ${pedido.Frete.toFixed(2)}</p>
-        <hr>
-    `;
 
-    pedidosContainer.appendChild(pedidoElement);
-});
 
 // Função para "logout" (pode ser adaptada para remover tokens/sessões)
 function logout() {

@@ -326,6 +326,16 @@ def obter_vendas():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+@app.route('/obterPedidosCliente', methods=['GET'])
+def obter_pedidos_cliente():
+    try:
+        pedidosCliente = pedido_service.obter_pedidos_cliente(usuario_logado['cpf'])
+        if not pedidosCliente:
+            return jsonify({"message": "Nenhuma venda encontrada."}), 404
+        return jsonify(pedidosCliente)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 @app.route('/salvarAval', methods=['POST'])
 def salvar_avaliacao():
 
