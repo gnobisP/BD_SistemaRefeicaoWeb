@@ -346,25 +346,26 @@ def salvar_avaliacao():
     avaliacao_service.salvar_avaliacao(avaliacao)
     return jsonify({"message": "Avaliação salva com sucesso!"}), 201
 
-
+variavelAlt = 22
 #função do edson, modificar para o nosso
 @app.route('/salvarCompra', methods=['POST'])
 def salvar_compra():
-    
+    global variavelAlt
+    variavelAlt += 1
     
     print(usuario_logado['cpf'])
     
     data = request.json
     
-    pedido = Pedido(115,data['total'], data['pagamento'], 
-                    3, usuario_logado['cpf'],"2024-07-20")
+    pedido = Pedido(data['total'], data['pagamento'], 
+                    5, usuario_logado['cpf'],"1")
 
     pedido_service.salvar_pedido(pedido)
-
+    
     for each in data['itens']:
-        faz_parte = FazParte(115 ,each['id_refeicao'])
+        faz_parte = FazParte(variavelAlt, each['id_refeicao'])
         pedido_service.salva_faz_parte(faz_parte)
-
+    
     
     return jsonify({"message": "Pedido salvo com sucesso!"}), 201
     

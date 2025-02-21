@@ -1,18 +1,18 @@
 [
     {
-        "categoria": "Carnes",
-        "descricao": "Variedade de carnes nobres",
-        "id_refeicao": "1",
-        "nome": "Churrasco Misto",
-        "preco": "55.00",
-        "url_foto": "https://img.freepik.com/fotos-premium/prato-tradicional-da-comida-brasileira-com-churrasco-feijao-arroz-e-salada_259266-1907.jpg"
+        "categoria": "Peixes",
+        "descricao": "Delicioso peixe \u00e0 milanesa",
+        "id_refeicao": "3",
+        "nome": "Peixe \u00e0 milanesa",
+        "preco": "42.00",
+        "url_foto": "https://img.band.uol.com.br/image/2023/05/23/\nfile-de-peixe-a-milanesa-com-molho-tartaro-163648.jpg"
     },
     {
-        "categoria": "Lanche",
-        "descricao": "Hamb\u00farguer com todos os acompanhamentos",
-        "id_refeicao": "5",
-        "nome": "X-Tudo",
-        "preco": "25.00",
-        "url_foto": "url_xtudo.jpg"
+        "categoria": "Caseira",
+        "descricao": "Feij\u00e3o preto com carnes variadas",
+        "id_refeicao": "4",
+        "nome": "Strogonoff de Frango",
+        "preco": "40.00",
+        "url_foto": "https://www.unileverfoodsolutions.com.br/dam/\nglobal-ufs/mcos/SLA/calcmenu/recipes/BR-recipes/chicken-&-other-poultry-dishes/strogonoff-de-frango/main-header.jpg"
     }
 ]

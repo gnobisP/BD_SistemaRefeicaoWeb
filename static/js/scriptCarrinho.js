@@ -208,12 +208,12 @@ async function finalizarCompra() {
                 },
                 body: json
             });
-/*
+
             if (response.ok) {
                 esvaziarCarrinho(); // Esvazia o carrinho após a compra
             } else {
                 throw new Error('Erro ao salvar o arquivo JSON.');
-            }*/
+            }
         
     }
     window.location.href = "/AreaUsuario"
