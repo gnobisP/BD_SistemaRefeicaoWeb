@@ -1,4 +1,4 @@
-from domain.models import NotaFiscal, Cliente, Refeicao, Cupom, Restaurante, Avaliacao, Pedido
+from domain.models import NotaFiscal, Cliente, Refeicao, Cupom, Restaurante, Avaliacao, Pedido, FazParte
 
 class NotaFiscalService:
     def __init__(self, db_adapter):
@@ -114,3 +114,7 @@ class PedidoService:
     def salvar_pedido(self, pedido: Pedido):
         query = "INSERT INTO PEDIDO (Id_Pedido, Valor_Pago, Forma_Pagamento, Id_Restaurante, Cpf_Cliente, Data_Entrega) VALUES (%s, %s, %s, %s, %s, %s)"
         self.db.execute(query, (pedido.id_pedido, pedido.valor_pago, pedido.forma_pagamento, pedido.id_restaurante, pedido.cpf_cliente,  pedido.data_pedido))
+
+    def salva_faz_parte(self, fazparte: FazParte):
+        query = "INSERT INTO FAZ_PARTE (Id_Pedido, Id_Refeicao) VALUES (%s, %s)"
+        self.db.execute(query, (fazparte.id_pedido, fazparte.id_refeicao))

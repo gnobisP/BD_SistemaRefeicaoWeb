@@ -3,7 +3,7 @@ from adapters.database_adapter import DatabaseAdapter
 from domain.services import NotaFiscalService, ClienteService, PedidoService, RefeicaoService, LoginService, CupomService
 from domain.models import NotaFiscal, NotaFiscalItens, Produto, Cliente, Refeicao, Cupom, Usuario
 from domain.services import NotaFiscalService, ClienteService, RefeicaoService, LoginService, CupomService, RestauranteService, AvaliacaoService
-from domain.models import NotaFiscal, NotaFiscalItens, Produto, Cliente, Refeicao, Cupom, Restaurante, Avaliacao, Pedido
+from domain.models import NotaFiscal, NotaFiscalItens, Produto, Cliente, Refeicao, Cupom, Restaurante, Avaliacao, Pedido, FazParte
 from flask_cors import CORS
 import os
 import json
@@ -348,10 +348,15 @@ def salvar_compra():
     
     data = request.json
     
-    pedido = Pedido(95,data['total'], data['pagamento'], 
+    pedido = Pedido(115,data['total'], data['pagamento'], 
                     3, usuario_logado['cpf'],"2024-07-20")
 
     pedido_service.salvar_pedido(pedido)
+
+    for each in data['itens']:
+        faz_parte = FazParte(115 ,each['id_refeicao'])
+        pedido_service.salva_faz_parte(faz_parte)
+
     
     return jsonify({"message": "Pedido salvo com sucesso!"}), 201
     
