@@ -8,16 +8,33 @@ async function checklogin() {
         const password = document.getElementById("password").value.trim();
 
         let correto = false;
+        let usuarioEncontrado = null;
+        console.log(usuarios);
         for (let user of usuarios) {
             console.log(password + "   " + user.senha);
             if (email === user.email && password === user.senha) {
                 correto = true;
+                usuarioEncontrado = user; // Salva o usuário encontrado
                 break;
             }
         }
 
         if (correto) {
-            window.location.href = "/AreaFuncionario";
+            // Envia o usuário para o Flask para salvar
+            const salvarResponse = await fetch('/salvaUsuarioAtual', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(usuarioEncontrado), // Envia o usuário encontrado
+            });
+
+            if (salvarResponse.ok) {
+                console.log('Usuário salvo com sucesso no backend.');
+                window.location.href = "/CadastrarCupom"; // Redireciona para a área do usuário
+            } else {
+                console.error('Erro ao salvar o usuário no backend.');
+            }
         } else {
             alert("❌ Usuário ou senha incorretos.");
         }

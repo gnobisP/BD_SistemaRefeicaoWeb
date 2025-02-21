@@ -70,12 +70,12 @@ class Avaliacao:
 
 @dataclass
 class Pedido:
-    id_pedido: str
     valor_pago: int
     forma_pagamento: int
     id_restaurante: str
     cpf_cliente: str
-    data_pedido: str
+    codigo_cupom: str
+
 
 @dataclass
 class FazParte:

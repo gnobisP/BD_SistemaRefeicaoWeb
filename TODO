@@ -1,28 +1,7 @@
 
 ##GUSTAVO##
-(X) Criar tela de AlterarCadastraUsuario
-(X) Criar tela cadastrarCupom
-(X) Criar telas de refeições
 
-(X) Criar carrinho
-    (X) opção remover remove do jason
-    (X) opção cupom
-    () script carrinho
-        (x) remover itens no api/carrinho
-        (x) esvaziar carrinho  
-        (x) modificar a rota para a certa
-        (X) criar rota para enviar o carrinho para tabela pedidos (os itens do carrinho estão no json local)
-        (X) fazer rota enviar pedido
-avaliacao
-        ()telas e rotas
-        
-areaUsuario
-    (X) modificar botao sair 
-    (X) modificar botao alterar dados
-    (X) cadastrar navBar
-carrinho
-    (x) concertar navBar
-    (x) concertar botoes
+
 Cardapio
     (X) puxar itens do jason
     () concertar formtação html, ficar um do lado do outro
@@ -30,7 +9,6 @@ Login
     (X) modificar pushButton Entrar
 Refeicao-adm
     (x) cadastro Refeicao
-    () remove Refeicao
     () altera Refeicao
 Refeicao-user
     (x) concertar o filtar por categoria
