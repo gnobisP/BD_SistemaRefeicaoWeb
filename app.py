@@ -266,6 +266,8 @@ def salvar_Refeicao():
     #cliente_data = data['cliente']
     refeicao = Refeicao(data['id_refeicao'], data['nome'], data['preco'],
                       data['categoria'], data['descricao'], data['url_foto'])
+    refeicao_service.salvar_Refeicao(refeicao)
+    return jsonify({"message": "Cupom cadastrada com sucesso!"}), 201
 
 @app.route('/salvarCupom', methods=['POST'])
 def salvar_Cupom():
@@ -346,7 +348,7 @@ def salvar_avaliacao():
     avaliacao_service.salvar_avaliacao(avaliacao)
     return jsonify({"message": "Avaliação salva com sucesso!"}), 201
 
-variavelAlt = 22
+variavelAlt = 31
 #função do edson, modificar para o nosso
 @app.route('/salvarCompra', methods=['POST'])
 def salvar_compra():
@@ -358,7 +360,7 @@ def salvar_compra():
     data = request.json
     
     pedido = Pedido(data['total'], data['pagamento'], 
-                    5, usuario_logado['cpf'],"1")
+                    6, usuario_logado['cpf'],"1")
 
     pedido_service.salvar_pedido(pedido)
     

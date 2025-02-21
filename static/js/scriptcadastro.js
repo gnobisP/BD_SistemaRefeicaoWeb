@@ -34,7 +34,7 @@ async function faz_cadastro(){
         console.error("Erro ao cadastrar usuário: ", error);
     });
 
-    window.location.href = "/AreaUsuario";
+    window.location.href = "/index";
 }
 
 
