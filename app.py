@@ -30,9 +30,6 @@ pedido_service = PedidoService(db_adapter)
 @app.route('/')
 def index0():
     return render_template('index.html')
-@app.route('/AreaFuncionario')
-def AreaFuncionario():
-    return render_template('AreaFuncionario.html')
 
 @app.route('/Avaliacao')
 def avaliacao():
@@ -52,10 +49,12 @@ def loginUsu():
 @app.route('/loginAdm')
 def loginAdm():
     return render_template('loginAdm.html')
-
+@app.route("/api/usuario")
+def get_usuario():
+    return jsonify(usuario_logado)
 @app.route('/AreaUsuario')
 def areauser():
-    return render_template('AreaUsuario.html')
+    return render_template('AreaUsuario.html',usuario_logado=usuario_logado)
 
 @app.route('/alterarDadosUso')
 def alterardadosuso():
@@ -104,6 +103,7 @@ def check_login():
         return jsonify({"error": str(e)}, 500)
     
 usuario_logado = None
+
 
 @app.route('/salvaUsuarioAtual', methods=['GET', 'POST'])  # Aceita GET e POST
 def salva_usuario_atual():
@@ -154,7 +154,15 @@ def load_items():
             return json.load(file)
     return []
 '''
-
+usuario_logado = {
+            "cpf": "12345678901",
+            "nome": "Fulano",
+            "endereco": "Rua dos Bobos, 0",
+            "telefone": "123456789",
+            "email": "fulano@det",
+            "senha": "123456",
+            "cliente_funcionario": "cliente"
+        }
 def load_items():
     if os.path.exists('dados/carrinho.json'):
         with open('dados/carrinho.json', 'r') as file:

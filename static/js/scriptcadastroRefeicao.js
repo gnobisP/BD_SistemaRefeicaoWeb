@@ -32,5 +32,5 @@ async function faz_cadastroR(){
         console.error("Erro ao cadastrar Refeicao: ", error);
     });
 
-    window.location.href = "/cardapio";
+    window.location.href = "/CadastroRef";
 }
