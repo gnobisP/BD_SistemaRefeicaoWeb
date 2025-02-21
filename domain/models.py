@@ -77,3 +77,8 @@ class Pedido:
     cpf_cliente: str
     data_pedido: str
 
+@dataclass
+class FazParte:
+    id_pedido: str
+    id_refeicao: str
+

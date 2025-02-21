@@ -1,4 +1,4 @@
-from domain.models import NotaFiscal, Cliente, Refeicao, Cupom, Restaurante, Avaliacao, Pedido
+from domain.models import NotaFiscal, Cliente, Refeicao, Cupom, Restaurante, Avaliacao, Pedido, FazParte
 
 class NotaFiscalService:
     def __init__(self, db_adapter):
@@ -119,3 +119,7 @@ class PedidoService:
     def obter_pedidos_cliente(self, cpf: str):
         query = "SELECT P.Id_Pedido, P.Valor_Pago, P.Forma_Pagamento, R.Nome, P.Data_Pedido from PEDIDO P join RESTAURANTE R on P.Id_Restaurante = R.Id_Restaurante where P.Cpf_Cliente = {cpf}"
         return self.db.fetch_all(query)
+    
+    def salva_faz_parte(self, fazparte: FazParte):
+        query = "INSERT INTO FAZ_PARTE (Id_Pedido, Id_Refeicao) VALUES (%s, %s)"
+        self.db.execute(query, (fazparte.id_pedido, fazparte.id_refeicao))

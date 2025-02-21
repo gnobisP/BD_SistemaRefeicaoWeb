@@ -3,7 +3,7 @@ from adapters.database_adapter import DatabaseAdapter
 from domain.services import NotaFiscalService, ClienteService, PedidoService, RefeicaoService, LoginService, CupomService
 from domain.models import NotaFiscal, NotaFiscalItens, Produto, Cliente, Refeicao, Cupom, Usuario
 from domain.services import NotaFiscalService, ClienteService, RefeicaoService, LoginService, CupomService, RestauranteService, AvaliacaoService
-from domain.models import NotaFiscal, NotaFiscalItens, Produto, Cliente, Refeicao, Cupom, Restaurante, Avaliacao, Pedido
+from domain.models import NotaFiscal, NotaFiscalItens, Produto, Cliente, Refeicao, Cupom, Restaurante, Avaliacao, Pedido, FazParte
 from flask_cors import CORS
 import os
 import json
@@ -30,9 +30,6 @@ pedido_service = PedidoService(db_adapter)
 @app.route('/')
 def index0():
     return render_template('index.html')
-@app.route('/AreaFuncionario')
-def AreaFuncionario():
-    return render_template('AreaFuncionario.html')
 
 @app.route('/Avaliacao')
 def avaliacao():
@@ -52,10 +49,12 @@ def loginUsu():
 @app.route('/loginAdm')
 def loginAdm():
     return render_template('loginAdm.html')
-
+@app.route("/api/usuario")
+def get_usuario():
+    return jsonify(usuario_logado)
 @app.route('/AreaUsuario')
 def areauser():
-    return render_template('AreaUsuario.html')
+    return render_template('AreaUsuario.html',usuario_logado=usuario_logado)
 
 @app.route('/alterarDadosUso')
 def alterardadosuso():
@@ -104,6 +103,7 @@ def check_login():
         return jsonify({"error": str(e)}, 500)
     
 usuario_logado = None
+
 
 @app.route('/salvaUsuarioAtual', methods=['GET', 'POST'])  # Aceita GET e POST
 def salva_usuario_atual():
@@ -154,7 +154,6 @@ def load_items():
             return json.load(file)
     return []
 '''
-
 def load_items():
     if os.path.exists('dados/carrinho.json'):
         with open('dados/carrinho.json', 'r') as file:
@@ -358,10 +357,15 @@ def salvar_compra():
     
     data = request.json
     
-    pedido = Pedido(95,data['total'], data['pagamento'], 
+    pedido = Pedido(115,data['total'], data['pagamento'], 
                     3, usuario_logado['cpf'],"2024-07-20")
 
     pedido_service.salvar_pedido(pedido)
+
+    for each in data['itens']:
+        faz_parte = FazParte(115 ,each['id_refeicao'])
+        pedido_service.salva_faz_parte(faz_parte)
+
     
     return jsonify({"message": "Pedido salvo com sucesso!"}), 201
     

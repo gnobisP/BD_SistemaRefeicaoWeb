@@ -34,9 +34,7 @@ function irParaCadastroRefeicao() {
 function irParaCadastroCupom() {
     window.location.href = "/CadastrarCupom"; // Certifique-se de que essa rota existe no Flask
 }
-function irParaAreaFuncionario() {
-    window.location.href = "/AreaFuncionario"; // Certifique-se de que essa rota existe no Flask
-}
+
 function irParaAvaliacao() {
     window.location.href = "/Avaliacao"; // Certifique-se de que essa rota existe no Flask
 }

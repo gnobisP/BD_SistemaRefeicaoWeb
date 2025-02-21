@@ -81,7 +81,7 @@ function filtrarPorCategoria() {
 }
 
 async function adicionarNoCarrinho(refeicao) {
-  alert("teste");
+  alert("Adicionado");
   const response = await fetch('/api/itens', {
       method: 'POST',
       headers: {

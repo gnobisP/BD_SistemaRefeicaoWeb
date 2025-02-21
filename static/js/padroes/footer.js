@@ -4,7 +4,7 @@ document.write(`
             <div class="row">
                 <div class="col-md-4 footer-logo-box">
                     <a href="index.html">
-                        <img src="https://files.oaiusercontent.com/file-Hn2sQiG9jxoXo6UuHeocfW?se=2025-02-20T21%3A47%3A00Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3Da8a37337-eae4-4cd1-815a-b597eb9bf57f.webp&sig=y3KbJ2LOPJW7j3Ga70cGvjW2uxihK%2B1HJN%2BBeHs8ktM%3D" alt="logo_restaurante" />
+                        <img src="https://images-ext-1.discordapp.net/external/4mSnXTD3UJJPhN_yrCoKWbRx3fxD7A29Ty89RvrPEdY/https/marketplace.canva.com/EAFemtKs454/3/0/1600w/canva-logotipo-de-hamburgueria-ilustrado-preto-e-amarelo-t3zztTnBOT0.jpg?format=webp&width=454&height=454" alt="logo_restaurante" />
                     </a>
                     <h5 class="footer-logo-box">&gt; Happy Foods</h5>
                 </div>
