@@ -34,3 +34,4 @@ class DatabaseAdapter:
 
                 conn.commit()
                 return result
+            

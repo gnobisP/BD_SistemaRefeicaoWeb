@@ -123,3 +123,6 @@ class PedidoService:
     def salva_faz_parte(self, fazparte: FazParte):
         query = "INSERT INTO FAZ_PARTE (Id_Pedido, Id_Refeicao) VALUES (%s, %s)"
         self.db.execute(query, (fazparte.id_pedido, fazparte.id_refeicao))
+
+
+        

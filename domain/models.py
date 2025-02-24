@@ -79,6 +79,6 @@ class Pedido:
 
 @dataclass
 class FazParte:
-    id_pedido: str
+    id_pedido: StopIteration
     id_refeicao: str
 
